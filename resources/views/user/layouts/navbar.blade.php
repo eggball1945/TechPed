@@ -1,144 +1,279 @@
 @guest
-<div class="w-full flex justify-center items-center h-16 bg-white shadow-md">
-    <div class="flex items-center gap-[210px] w-[1186px]">
-        <div class="flex-shrink-0">
-            <a href="/landing" class="font-extrabold text-2xl text-violet-700">TechPed</a>
-        </div>
+    <div class="w-full flex justify-center items-center h-16 bg-white border-b border-gray-300/70">
+        <div class="flex items-center justify-between w-[1186px]">
+                <div class="flex-shrink-0">
+                    <a href="/landing" class="font-extrabold text-2xl text-violet-700">TechPed</a>
+                </div>
 
-        <div class="flex items-center gap-12 whitespace-nowrap">
-            <a href="/landing" class="font-title-16px-regular relative pb-1 {{ Request::is('landing') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
-                Home
-            </a>
-            <a href="/kontak" class="font-title-16px-regular relative pb-1 {{ Request::is('kontak') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
-                Kontak
-            </a>
-            <a href="/tentang" class="font-title-16px-regular relative pb-1 {{ Request::is('tentang') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
-                Tentang
-            </a>
-            <a href="/login" class="font-title-16px-regular relative pb-1 {{ Request::is('login', 'register') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}" >
-                Sign Up
-            </a>
-        </div>
+            <div class="flex items-center gap-12 whitespace-nowrap">
+                    <a href="/landing"
+                        class="font-title-16px-regular relative pb-1 {{ Request::is('/', 'landing') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
+                        Home
+                    </a>
+                    <a href="/kontak"
+                        class="font-title-16px-regular relative pb-1 {{ Request::is('kontak') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
+                        Kontak
+                    </a>
+                    <a href="/tentang"
+                        class="font-title-16px-regular relative pb-1 {{ Request::is('tentang') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
+                        Tentang
+                    </a>
+                    <a href="/login"
+                        class="font-title-16px-regular relative pb-1 {{ Request::is('login', 'register') ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
+                        Sign Up
+                    </a>
+                </div>
 
-        <div class="flex items-center gap-2 ml-12 border rounded px-2 py-1 w-64">
-            <input type="text" name="q" placeholder="Apa yang ingin anda cari?" class="flex-1 text-sm outline-none" />
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
-            </svg>
+                <div class="flex items-center gap-2 rounded px-3 py-2 bg-neutral-100">
+                    <input type="text" placeholder="Apa yang ingin anda cari?"
+                        class="flex-1 text-sm outline-none bg-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+                    </svg>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 @endguest
 
 @auth
-<div class="w-full flex justify-center items-center h-16 bg-white shadow-md">
-    <div class="flex items-center justify-between w-[1186px]">
+    <div class="w-full flex justify-center items-center h-16 bg-white border-b border-gray-300/70">
+        <div class="flex items-center justify-between w-[1186px]">
 
-        <a href="/landing" class="font-extrabold text-2xl text-violet-700">
-            TechPed
-        </a>
+            <a href="/landing" class="font-extrabold text-2xl text-violet-700">
+                TechPed
+            </a>
 
-        <div class="flex items-center gap-12">
-            @foreach ([
-                'landing' => 'Home',
-                'kontak' => 'Kontak',
-                'tentang' => 'Tentang',
-                'keranjang' => 'Keranjang'
-            ] as $route => $label)
-                <a href="/{{ $route }}"
-                   class="font-title-16px-regular relative pb-1
+            <div class="flex items-center gap-12">
+                @foreach ([
+            'landing' => 'Home',
+            'kontak' => 'Kontak',
+            'tentang' => 'Tentang',
+            'keranjang' => 'Keranjang',
+        ] as $route => $label)
+                    <a href="/{{ $route }}"
+                        class="font-title-16px-regular relative pb-1
                    {{ Request::is($route) ? 'text-violet-700 border-b-2 border-violet-700' : 'text-black hover:border-b-2 hover:border-gray-400' }}">
-                    {{ $label }}
-                </a>
-            @endforeach
-        </div>
-
-        <div class="flex items-center gap-4 relative">
-
-            <div class="flex items-center gap-2 border rounded px-3 py-2 bg-neutral-100">
-                <input type="text" placeholder="Apa yang ingin anda cari?"
-                       class="flex-1 text-sm outline-none bg-transparent">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="h-5 w-5 text-gray-400"
-                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z"/>
-                </svg>
+                        {{ $label }}
+                    </a>
+                @endforeach
             </div>
 
-            <svg width="30" height="26" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 21V12C6 10.4087 6.63214 8.88258 7.75736 7.75736C8.88258 6.63214 10.4087 6 12 6C13.5913 6 15.1174 6.63214 16.2426 7.75736C17.3679 8.88258 18 10.4087 18 12V21M6 21H18M6 21H4M18 21H20M11 24H13" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="black" stroke-width="1.5"/>
-                <circle cx="22" cy="8" r="8" fill="#6D28D9"/>
-                <path d="M21.0341 4.32V3.324H23.2901V12H22.1861V4.32H21.0341Z" fill="#FAFAFA"/>
-            </svg>
+            <div class="flex items-center gap-4">
 
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.25 24.25C12.6642 24.25 13 23.9142 13 23.5C13 23.0858 12.6642 22.75 12.25 22.75C11.8358 22.75 11.5 23.0858 11.5 23.5C11.5 23.9142 11.8358 24.25 12.25 24.25Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M22.75 24.25C23.1642 24.25 23.5 23.9142 23.5 23.5C23.5 23.0858 23.1642 22.75 22.75 22.75C22.3358 22.75 22 23.0858 22 23.5C22 23.9142 22.3358 24.25 22.75 24.25Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6.25 7.75H9.25L11.5 20.5H23.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M11.5 16.5H23.1925C23.2792 16.5001 23.3633 16.4701 23.4304 16.4151C23.4975 16.3601 23.5434 16.2836 23.5605 16.1986L24.9105 9.44859C24.9214 9.39417 24.92 9.338 24.9066 9.28414C24.8931 9.23029 24.8679 9.18009 24.8327 9.13717C24.7975 9.09426 24.7532 9.05969 24.703 9.03597C24.6528 9.01225 24.598 8.99996 24.5425 9H10" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="23" cy="10" r="8" fill="#6D28D9"/>
-                <path d="M20.6608 13.124C21.6768 12.308 22.4728 11.64 23.0488 11.12C23.6248 10.592 24.1088 10.044 24.5008 9.476C24.9008 8.9 25.1008 8.336 25.1008 7.784C25.1008 7.264 24.9728 6.856 24.7168 6.56C24.4688 6.256 24.0648 6.104 23.5048 6.104C22.9608 6.104 22.5368 6.276 22.2328 6.62C21.9368 6.956 21.7768 7.408 21.7528 7.976H20.6968C20.7288 7.08 21.0008 6.388 21.5128 5.9C22.0248 5.412 22.6848 5.168 23.4928 5.168C24.3168 5.168 24.9688 5.396 25.4488 5.852C25.9368 6.308 26.1808 6.936 26.1808 7.736C26.1808 8.4 25.9808 9.048 25.5808 9.68C25.1888 10.304 24.7408 10.856 24.2368 11.336C23.7328 11.808 23.0888 12.36 22.3048 12.992H26.4328V13.904H20.6608V13.124Z" fill="#FAFAFA"/>
-            </svg>
+                <div class="flex items-center gap-2 rounded px-3 py-2 bg-neutral-100">
+                    <input type="text" placeholder="Apa yang ingin anda cari?"
+                        class="flex-1 text-sm outline-none bg-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+                    </svg>
+                </div>
+
+                <div class="relative">
+                    <button id="notifBtn" class="relative flex items-center justify-center h-8 w-8">
+                        <svg class="h-6 w-6 block" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6 21V12C6 10.4087 6.63214 8.88258 7.75736 7.75736C8.88258 6.63214 10.4087 6 12 6C13.5913 6 15.1174 6.63214 16.2426 7.75736C17.3679 8.88258 18 10.4087 18 12V21M6 21H18M6 21H4M18 21H20M11 24H13"
+                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                                stroke="black" stroke-width="1.5" />
+                            <circle cx="22" cy="8" r="8" fill="#6D28D9" />
+                            <path d="M21.0341 4.32V3.324H23.2901V12H22.1861V4.32H21.0341Z" fill="#FAFAFA" />
+                        </svg>
+                    </button>
+
+                    <div id="notifDropdown"
+                        class="absolute right-0 mt-3
+                        h-[391px] w-[311px]
+                        flex flex-col gap-3
+                        bg-white px-[21px] py-3 rounded-xl shadow-lg
+                        transition-all duration-200 ease-out
+                        opacity-0 scale-95 pointer-events-none invisible z-50
+                        origin-top-right">
+
+                        <span class="font-semibold text-[16px] leading-[18px] text-violet-700">Notifikasi</span>
+                        <div class="border-t border-gray-200 my-1"></div>
+
+                        <span class="font-semibold text-[14px] text-violet-700">Transaksi</span>
+
+                        <div class="flex justify-between text-[8px]">
+                            <span class="font-medium text-[12px] text-violet-700">Pembelian</span>
+                            <span class="text-[12px] text-black cursor-pointer">Lihat Semua</span>
+                        </div>
+
+                        <div class="border-t border-gray-200 my-1"></div>
+
+                        <div class="flex justify-between text-center text-[6px]">
+
+                            <a href="/transaksi?status=menunggu" class="flex flex-col items-center gap-1 hover:opacity-80
+                                transition">
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M15.0005 2.49976C13.359 2.49976 11.7335 2.82308 10.2169 3.45126C8.70038 4.07945 7.32239 5.00019 6.16165 6.16092C3.81745 8.50513 2.50049 11.6845 2.50049 14.9998C2.50049 18.315 3.81745 21.4944 6.16165 23.8386C7.32239 24.9993 8.70038 25.9201 10.2169 26.5483C11.7335 27.1764 13.359 27.4998 15.0005 27.4998C18.3157 27.4998 21.4951 26.1828 23.8393 23.8386C26.1835 21.4944 27.5005 18.315 27.5005 14.9998C27.5005 13.3582 27.1772 11.7328 26.549 10.2162C25.9208 8.69964 25.0001 7.32165 23.8393 6.16092C22.6786 5.00019 21.3006 4.07945 19.784 3.45126C18.2675 2.82308 16.642 2.49976 15.0005 2.49976ZM20.2505 20.2498L13.7505 16.2498V8.74976H15.6255V15.2498L21.2505 18.6248L20.2505 20.2498Z"
+                                        fill="#6D28D9" />
+                                </svg>
+                                <div>Menunggu<br>Konfirmasi</div>
+                            </a>
+
+                            <a href="/transaksi?status=proses"
+                                class="flex flex-col items-center gap-1 hover:opacity-80 transition">
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.7812 10.625H5.15625C4.82473 10.625 4.50679 10.4933 4.27237 10.2589C4.03795 10.0245 3.90625 9.70652 3.90625 9.375V3.75C3.90625 3.41848 4.03795 3.10054 4.27237 2.86612C4.50679 2.6317 4.82473 2.5 5.15625 2.5C5.48777 2.5 5.80571 2.6317 6.04013 2.86612C6.27455 3.10054 6.40625 3.41848 6.40625 3.75V8.125H10.7812C11.1128 8.125 11.4307 8.2567 11.6651 8.49112C11.8996 8.72554 12.0312 9.04348 12.0312 9.375C12.0312 9.70652 11.8996 10.0245 11.6651 10.2589C11.4307 10.4933 11.1128 10.625 10.7812 10.625Z"
+                                        fill="#6D28D9" />
+                                    <path
+                                        d="M26.25 16.25C25.9185 16.25 25.6005 16.1183 25.3661 15.8839C25.1317 15.6495 25 15.3315 25 15C25.001 12.7994 24.2756 10.6601 22.9364 8.91389C21.5972 7.16771 19.7191 5.91237 17.5935 5.34266C15.468 4.77295 13.2138 4.92073 11.1809 5.76306C9.14787 6.6054 7.44975 8.09519 6.35 10.0013C6.18391 10.2882 5.91064 10.4974 5.5903 10.5828C5.26997 10.6683 4.92881 10.623 4.64188 10.4569C4.35495 10.2908 4.14575 10.0175 4.0603 9.69718C3.97485 9.37685 4.02016 9.03569 4.18625 8.74876C5.56157 6.36655 7.68461 4.50481 10.226 3.45236C12.7674 2.39992 15.5851 2.21559 18.242 2.92799C20.8988 3.64039 23.2463 5.20968 24.9203 7.39242C26.5942 9.57515 27.501 12.2493 27.5 15C27.5 15.3315 27.3683 15.6495 27.1339 15.8839C26.8995 16.1183 26.5815 16.25 26.25 16.25ZM24.8438 27.5C24.5122 27.5 24.1943 27.3683 23.9599 27.1339C23.7254 26.8995 23.5938 26.5815 23.5938 26.25V21.875H19.2188C18.8872 21.875 18.5693 21.7433 18.3349 21.5089C18.1004 21.2745 17.9688 20.9565 17.9688 20.625C17.9688 20.2935 18.1004 19.9755 18.3349 19.7411C18.5693 19.5067 18.8872 19.375 19.2188 19.375H24.8438C25.1753 19.375 25.4932 19.5067 25.7276 19.7411C25.9621 19.9755 26.0938 20.2935 26.0938 20.625V26.25C26.0938 26.5815 25.9621 26.8995 25.7276 27.1339C25.4932 27.3683 25.1753 27.5 24.8438 27.5Z"
+                                        fill="#6D28D9" />
+                                    <path
+                                        d="M15 27.5C11.6858 27.4967 8.50831 26.1787 6.16482 23.8352C3.82133 21.4917 2.50331 18.3142 2.5 15C2.5 14.6685 2.6317 14.3505 2.86612 14.1161C3.10054 13.8817 3.41848 13.75 3.75 13.75C4.08152 13.75 4.39946 13.8817 4.63388 14.1161C4.8683 14.3505 5 14.6685 5 15C4.99905 17.2006 5.72445 19.3399 7.06363 21.0861C8.40282 22.8323 10.2809 24.0876 12.4065 24.6573C14.532 25.2271 16.7862 25.0793 18.8191 24.2369C20.8521 23.3946 22.5502 21.9048 23.65 19.9987C23.7322 19.8567 23.8417 19.7322 23.972 19.6324C24.1024 19.5326 24.2511 19.4595 24.4097 19.4172C24.5683 19.3749 24.7337 19.3642 24.8964 19.3858C25.0592 19.4074 25.2161 19.4609 25.3581 19.5431C25.5002 19.6254 25.6247 19.7348 25.7245 19.8651C25.8243 19.9955 25.8974 20.1442 25.9397 20.3028C25.982 20.4614 25.9927 20.6268 25.9711 20.7896C25.9494 20.9523 25.896 21.1092 25.8137 21.2512C24.7146 23.147 23.1377 24.7216 21.2403 25.818C19.343 26.9144 17.1914 27.4943 15 27.5Z"
+                                        fill="#6D28D9" />
+                                </svg>
+                                <div>Pesanan<br>Diproses</div>
+                            </a>
+
+                            <a href="/transaksi?status=dikirim"
+                                class="flex flex-col items-center gap-1 hover:opacity-80 transition">
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3 7.5C3 5.84531 4.34531 4.5 6 4.5H19.5C21.1547 4.5 22.5 5.84531 22.5 7.5V9H24.8766C25.6734 9 26.4375 9.31406 27 9.87656L29.1234 12C29.6859 12.5625 30 13.3266 30 14.1234V21C30 22.6547 28.6547 24 27 24H26.8453C26.3578 25.7297 24.7641 27 22.875 27C20.9859 27 19.3969 25.7297 18.9047 24H14.0953C13.6078 25.7297 12.0141 27 10.125 27C8.23594 27 6.64688 25.7297 6.15469 24H6C4.34531 24 3 22.6547 3 21V18.75H1.125C0.501562 18.75 0 18.2484 0 17.625C0 17.0016 0.501562 16.5 1.125 16.5H6.375C6.99844 16.5 7.5 15.9984 7.5 15.375C7.5 14.7516 6.99844 14.25 6.375 14.25H1.125C0.501562 14.25 0 13.7484 0 13.125C0 12.5016 0.501562 12 1.125 12H9.375C9.99844 12 10.5 11.4984 10.5 10.875C10.5 10.2516 9.99844 9.75 9.375 9.75H1.125C0.501562 9.75 0 9.24844 0 8.625C0 8.00156 0.501562 7.5 1.125 7.5H3ZM27 16.5V14.1234L24.8766 12H22.5V16.5H27ZM12 22.875C12 21.8391 11.1609 21 10.125 21C9.08906 21 8.25 21.8391 8.25 22.875C8.25 23.9109 9.08906 24.75 10.125 24.75C11.1609 24.75 12 23.9109 12 22.875ZM22.875 24.75C23.9109 24.75 24.75 23.9109 24.75 22.875C24.75 21.8391 23.9109 21 22.875 21C21.8391 21 21 21.8391 21 22.875C21 23.9109 21.8391 24.75 22.875 24.75Z"
+                                        fill="#6D28D9" />
+                                </svg>
+                                <div>Sedang<br>Dikirim</div>
+                            </a>
+
+                            <a href="/transaksi?status=selesai"
+                                class="flex flex-col items-center gap-1 hover:opacity-80 transition">
+                                <svg width="19" height="25" viewBox="0 0 19 25" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.25 11.875C8.37384 11.875 7.53356 11.5458 6.91402 10.9597C6.29448 10.3737 5.94643 9.5788 5.94643 8.75C5.94643 7.9212 6.29448 7.12634 6.91402 6.54029C7.53356 5.95424 8.37384 5.625 9.25 5.625C10.1262 5.625 10.9664 5.95424 11.586 6.54029C12.2055 7.12634 12.5536 7.9212 12.5536 8.75C12.5536 9.16038 12.4681 9.56674 12.3021 9.94589C12.1361 10.325 11.8927 10.6695 11.586 10.9597C11.2792 11.2499 10.915 11.4801 10.5142 11.6371C10.1134 11.7942 9.68383 11.875 9.25 11.875ZM9.25 0C6.79675 0 4.44397 0.921872 2.70926 2.56282C0.974551 4.20376 0 6.42936 0 8.75C0 15.3125 9.25 25 9.25 25C9.25 25 18.5 15.3125 18.5 8.75C18.5 6.42936 17.5254 4.20376 15.7907 2.56282C14.056 0.921872 11.7033 0 9.25 0Z"
+                                        fill="#6D28D9" />
+                                </svg>
+                                <div>Sampai<br>Tujuan</div>
+                            </a>
+
+                        </div>
+
+                        <div class="border-t border-gray-200 my-1"></div>
+
+                        <span class="font-medium text-[12px] text-violet-700">Untuk Kamu</span>
+
+                        <div class="flex flex-col items-center py-2">
+
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M37.0752 47.5C36.5587 48.9638 35.6008 50.2314 34.3337 51.128C33.0665 52.0246 31.5525 52.5061 30.0002 52.5061C28.4479 52.5061 26.9338 52.0246 25.6667 51.128C24.3995 50.2314 23.4417 48.9638 22.9252 47.5H37.0752ZM30.0002 5.00001C34.6415 5.00001 39.0927 6.84375 42.3746 10.1256C45.6564 13.4075 47.5002 17.8587 47.5002 22.5V31.32C47.5006 31.708 47.5913 32.0906 47.7652 32.4375L52.0552 41.02C52.2649 41.4393 52.3639 41.9052 52.3428 42.3736C52.3218 42.8419 52.1813 43.2971 51.9348 43.6959C51.6884 44.0946 51.344 44.4238 50.9345 44.652C50.525 44.8803 50.064 45.0001 49.5952 45H48.5352L51.2127 47.6775C51.6681 48.149 51.9201 48.7805 51.9144 49.436C51.9087 50.0915 51.6458 50.7185 51.1822 51.1821C50.7187 51.6456 50.0917 51.9085 49.4362 51.9142C48.7807 51.9199 48.1492 51.6679 47.6777 51.2125L8.78769 12.325C8.54892 12.0944 8.35846 11.8185 8.22744 11.5135C8.09642 11.2085 8.02745 10.8805 8.02457 10.5485C8.02168 10.2166 8.08494 9.88736 8.21064 9.58012C8.33634 9.27288 8.52197 8.99375 8.7567 8.75902C8.99144 8.52429 9.27057 8.33865 9.57781 8.21295C9.88505 8.08725 10.2142 8.024 10.5462 8.02688C10.8781 8.02976 11.2062 8.09873 11.5112 8.22975C11.8162 8.36077 12.0921 8.55123 12.3227 8.79001L15.8027 12.27C17.4227 10.0181 19.5555 8.18426 22.0247 6.92008C24.4939 5.6559 27.2287 4.99773 30.0027 5.00001M12.5577 21.0675L36.4902 45H10.4052C9.93639 45.0001 9.47535 44.8803 9.06586 44.652C8.65637 44.4238 8.31204 44.0946 8.06555 43.6959C7.81907 43.2971 7.67863 42.8419 7.65756 42.3736C7.6365 41.9052 7.73551 41.4393 7.94519 41.02L12.2377 32.4375C12.4107 32.0904 12.5006 31.7078 12.5002 31.32V22.5C12.5002 22.0167 12.5194 21.5392 12.5577 21.0675Z"
+                                    fill="#6D28D9" />
+                            </svg>
+
+                            <span class="text-[12px] text-black">
+                                Kamu belum menerima notifikasi nih
+                            </span>
+                        </div>
 
 
-            <div class="relative">
+                    </div>
+                </div>
 
-                <button id="profileBtn" class="focus:outline-none">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <rect width="32" height="32" rx="16" fill="#6D28D9"/>
-                        <path d="M21 23V21.3333C21 20.4493 20.691 19.6014 20.1408 18.9763C19.5907 18.3512 18.8446 18 18.0667 18H12.9333C12.1554 18 11.4093 18.3512 10.8592 18.9763C10.309 19.6014 10 20.4493 10 21.3333V23"
-                              stroke="white" stroke-width="1.5"/>
-                        <path d="M16 15C17.6569 15 19 13.6569 19 12C19 10.3431 17.6569 9 16 9C14.3431 9 13 10.3431 13 12C13 13.6569 14.3431 15 16 15Z"
-                              stroke="white" stroke-width="1.5"/>
+                <button id="cartBtn" class="flex items-center justify-center h-8 w-8">
+                    <svg class="h-6 w-6 block" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12.25 24.25C12.6642 24.25 13 23.9142 13 23.5C13 23.0858 12.6642 22.75 12.25 22.75C11.8358 22.75 11.5 23.0858 11.5 23.5C11.5 23.9142 11.8358 24.25 12.25 24.25Z"
+                            stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M22.75 24.25C23.1642 24.25 23.5 23.9142 23.5 23.5C23.5 23.0858 23.1642 22.75 22.75 22.75C22.3358 22.75 22 23.0858 22 23.5C22 23.9142 22.3358 24.25 22.75 24.25Z"
+                            stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M6.25 7.75H9.25L11.5 20.5H23.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path
+                            d="M11.5 16.5H23.1925C23.2792 16.5001 23.3633 16.4701 23.4304 16.4151C23.4975 16.3601 23.5434 16.2836 23.5605 16.1986L24.9105 9.44859C24.9214 9.39417 24.92 9.338 24.9066 9.28414C24.8931 9.23029 24.8679 9.18009 24.8327 9.13717C24.7975 9.09426 24.7532 9.05969 24.703 9.03597C24.6528 9.01225 24.598 8.99996 24.5425 9H10"
+                            stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="23" cy="10" r="8" fill="#6D28D9" />
+                        <path
+                            d="M20.6608 13.124C21.6768 12.308 22.4728 11.64 23.0488 11.12C23.6248 10.592 24.1088 10.044 24.5008 9.476C24.9008 8.9 25.1008 8.336 25.1008 7.784C25.1008 7.264 24.9728 6.856 24.7168 6.56C24.4688 6.256 24.0648 6.104 23.5048 6.104C22.9608 6.104 22.5368 6.276 22.2328 6.62C21.9368 6.956 21.7768 7.408 21.7528 7.976H20.6968C20.7288 7.08 21.0008 6.388 21.5128 5.9C22.0248 5.412 22.6848 5.168 23.4928 5.168C24.3168 5.168 24.9688 5.396 25.4488 5.852C25.9368 6.308 26.1808 6.936 26.1808 7.736C26.1808 8.4 25.9808 9.048 25.5808 9.68C25.1888 10.304 24.7408 10.856 24.2368 11.336C23.7328 11.808 23.0888 12.36 22.3048 12.992H26.4328V13.904H20.6608V13.124Z"
+                            fill="#FAFAFA" />
                     </svg>
                 </button>
 
-                <div id="profileDropdown"
-                     class="absolute right-0 mt-3 w-[329px] bg-white p-6 rounded-xl shadow-lg
+
+                <div class="relative">
+
+                    <button id="profileBtn" class="focus:outline-none flex items-center justify-center h-8 w-8">
+                        <svg class="h-6 w-6 block" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="16" fill="#6D28D9" />
+                            <path
+                                d="M21 23V21.3333C21 20.4493 20.691 19.6014 20.1408 18.9763C19.5907 18.3512 18.8446 18 18.0667 18H12.9333C12.1554 18 11.4093 18.3512 10.8592 18.9763C10.309 19.6014 10 20.4493 10 21.3333V23"
+                                stroke="white" stroke-width="1.5" />
+                            <path
+                                d="M16 15C17.6569 15 19 13.6569 19 12C19 10.3431 17.6569 9 16 9C14.3431 9 13 10.3431 13 12C13 13.6569 14.3431 15 16 15Z"
+                                stroke="white" stroke-width="1.5" />
+                        </svg>
+                    </button>
+
+                    <div id="profileDropdown"
+                        class="absolute right-0 mt-3 w-[329px] bg-white p-6 rounded-xl shadow-lg
                             opacity-0 scale-95 pointer-events-none
                             transition-all duration-200 origin-top">
 
-                    <div class="mb-4">
-                        <p class="font-semibold text-sm">{{ auth()->user()->nama_depan ?? 'User' }}</p>
-                        <p class="text-xs opacity-70">Online</p>
+                        <div class="mb-4">
+                            <p class="font-semibold text-sm">{{ auth()->user()->nama_depan ?? 'User' }}</p>
+                            <p class="text-xs opacity-70">Online</p>
+                        </div>
+
+                        <div class="h-px bg-gray-200 my-3"></div>
+
+                        <div class="flex flex-col gap-3 text-sm">
+                            <a href="/akun" class="flex items-center gap-2 hover:text-violet-700">
+                                <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.0071 1.14539C9.32294 0.406758 8.36739 0 7.3127 0C6.25239 0 5.29368 0.404297 4.6127 1.13836C3.92434 1.88051 3.58895 2.88914 3.6677 3.97828C3.8238 6.12703 5.45891 7.875 7.3127 7.875C9.16649 7.875 10.7988 6.12738 10.9573 3.97898C11.0372 2.89969 10.6997 1.89316 10.0071 1.14539V1.14539ZM13.5002 15.75H1.1252C0.963224 15.7521 0.802814 15.7181 0.655642 15.6504C0.508469 15.5827 0.378237 15.4831 0.27442 15.3587C0.0459042 15.0855 -0.0462052 14.7125 0.0219979 14.3353C0.318717 12.6893 1.24473 11.3066 2.7002 10.3359C3.99325 9.47426 5.63118 9 7.3127 9C8.99422 9 10.6322 9.47461 11.9252 10.3359C13.3807 11.3063 14.3067 12.6889 14.6034 14.335C14.6716 14.7122 14.5795 15.0852 14.351 15.3584C14.2472 15.4828 14.117 15.5825 13.9698 15.6502C13.8226 15.718 13.6622 15.7521 13.5002 15.75V15.75Z"
+                                        fill="#6D28D9" />
+                                </svg>
+                                <span>Akun Saya</span>
+                            </a>
+
+                            <a href="/pesanan" class="flex items-center gap-2 hover:text-violet-700">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.125 13.2188C1.125 13.7409 1.33242 14.2417 1.70163 14.6109C2.07085 14.9801 2.57161 15.1875 3.09375 15.1875H14.9062C15.4284 15.1875 15.9292 14.9801 16.2984 14.6109C16.6676 14.2417 16.875 13.7409 16.875 13.2188V7.80469H1.125V13.2188ZM3.44531 10.5469C3.44531 10.2672 3.55643 9.99889 3.75422 9.8011C3.95202 9.60331 4.22028 9.49219 4.5 9.49219H6.1875C6.46722 9.49219 6.73548 9.60331 6.93328 9.8011C7.13107 9.99889 7.24219 10.2672 7.24219 10.5469V11.25C7.24219 11.5297 7.13107 11.798 6.93328 11.9958C6.73548 12.1936 6.46722 12.3047 6.1875 12.3047H4.5C4.22028 12.3047 3.95202 12.1936 3.75422 11.9958C3.55643 11.798 3.44531 11.5297 3.44531 11.25V10.5469ZM14.9062 2.8125H3.09375C2.57161 2.8125 2.07085 3.01992 1.70163 3.38913C1.33242 3.75835 1.125 4.25911 1.125 4.78125V5.69531H16.875V4.78125C16.875 4.25911 16.6676 3.75835 16.2984 3.38913C15.9292 3.01992 15.4284 2.8125 14.9062 2.8125V2.8125Z"
+                                        fill="#6D28D9" />
+                                </svg>
+                                <span>Pesanan Saya</span>
+                            </a>
+                        </div>
+
+                        <div class="h-px bg-gray-200 my-3"></div>
+
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button class="flex items-center gap-2 text-sm w-full hover:text-red-600">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5.625 9C5.625 8.85082 5.68426 8.70774 5.78975 8.60225C5.89524 8.49676 6.03832 8.4375 6.1875 8.4375H11.25V4.78125C11.25 3.65625 10.0621 2.8125 9 2.8125H3.65625C3.13428 2.81306 2.63384 3.02066 2.26475 3.38975C1.89566 3.75884 1.68806 4.25928 1.6875 4.78125V13.2188C1.68806 13.7407 1.89566 14.2412 2.26475 14.6102C2.63384 14.9793 3.13428 15.1869 3.65625 15.1875H9.28125C9.80322 15.1869 10.3037 14.9793 10.6727 14.6102C11.0418 14.2412 11.2494 13.7407 11.25 13.2188V9.5625H6.1875C6.03832 9.5625 5.89524 9.50324 5.78975 9.39775C5.68426 9.29226 5.625 9.14918 5.625 9ZM16.1476 8.60238L13.3351 5.78988C13.2288 5.68885 13.0872 5.63335 12.9405 5.63523C12.7938 5.63711 12.6537 5.69621 12.5499 5.79994C12.4462 5.90366 12.3871 6.0438 12.3852 6.19048C12.3834 6.33716 12.4388 6.47877 12.5399 6.58512L14.3919 8.4375H11.25V9.5625H14.3919L12.5399 11.4149C12.4855 11.4666 12.4419 11.5287 12.4119 11.5975C12.3818 11.6663 12.3658 11.7404 12.3649 11.8155C12.3639 11.8906 12.378 11.9651 12.4063 12.0346C12.4346 12.1042 12.4765 12.1673 12.5296 12.2204C12.5827 12.2735 12.6458 12.3154 12.7154 12.3437C12.7849 12.372 12.8594 12.3861 12.9345 12.3851C13.0096 12.3842 13.0837 12.3682 13.1525 12.3381C13.2213 12.3081 13.2834 12.2645 13.3351 12.2101L16.1476 9.39762C16.253 9.29214 16.3122 9.14912 16.3122 9C16.3122 8.85088 16.253 8.70786 16.1476 8.60238V8.60238Z"
+                                        fill="#6D28D9" />
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </form>
                     </div>
 
-                    <div class="h-px bg-gray-200 my-3"></div>
-
-                    <div class="flex flex-col gap-3 text-sm">
-                        <a href="/akun" class="flex items-center gap-2 hover:text-violet-700">
-                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.0071 1.14539C9.32294 0.406758 8.36739 0 7.3127 0C6.25239 0 5.29368 0.404297 4.6127 1.13836C3.92434 1.88051 3.58895 2.88914 3.6677 3.97828C3.8238 6.12703 5.45891 7.875 7.3127 7.875C9.16649 7.875 10.7988 6.12738 10.9573 3.97898C11.0372 2.89969 10.6997 1.89316 10.0071 1.14539V1.14539ZM13.5002 15.75H1.1252C0.963224 15.7521 0.802814 15.7181 0.655642 15.6504C0.508469 15.5827 0.378237 15.4831 0.27442 15.3587C0.0459042 15.0855 -0.0462052 14.7125 0.0219979 14.3353C0.318717 12.6893 1.24473 11.3066 2.7002 10.3359C3.99325 9.47426 5.63118 9 7.3127 9C8.99422 9 10.6322 9.47461 11.9252 10.3359C13.3807 11.3063 14.3067 12.6889 14.6034 14.335C14.6716 14.7122 14.5795 15.0852 14.351 15.3584C14.2472 15.4828 14.117 15.5825 13.9698 15.6502C13.8226 15.718 13.6622 15.7521 13.5002 15.75V15.75Z" fill="#6D28D9"/>
-                            </svg>
-                            <span>Akun Saya</span>
-                        </a>
-
-                        <a href="/pesanan" class="flex items-center gap-2 hover:text-violet-700">
-                           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.125 13.2188C1.125 13.7409 1.33242 14.2417 1.70163 14.6109C2.07085 14.9801 2.57161 15.1875 3.09375 15.1875H14.9062C15.4284 15.1875 15.9292 14.9801 16.2984 14.6109C16.6676 14.2417 16.875 13.7409 16.875 13.2188V7.80469H1.125V13.2188ZM3.44531 10.5469C3.44531 10.2672 3.55643 9.99889 3.75422 9.8011C3.95202 9.60331 4.22028 9.49219 4.5 9.49219H6.1875C6.46722 9.49219 6.73548 9.60331 6.93328 9.8011C7.13107 9.99889 7.24219 10.2672 7.24219 10.5469V11.25C7.24219 11.5297 7.13107 11.798 6.93328 11.9958C6.73548 12.1936 6.46722 12.3047 6.1875 12.3047H4.5C4.22028 12.3047 3.95202 12.1936 3.75422 11.9958C3.55643 11.798 3.44531 11.5297 3.44531 11.25V10.5469ZM14.9062 2.8125H3.09375C2.57161 2.8125 2.07085 3.01992 1.70163 3.38913C1.33242 3.75835 1.125 4.25911 1.125 4.78125V5.69531H16.875V4.78125C16.875 4.25911 16.6676 3.75835 16.2984 3.38913C15.9292 3.01992 15.4284 2.8125 14.9062 2.8125V2.8125Z" fill="#6D28D9"/>
-                            </svg>
-                            <span>Pesanan Saya</span>
-                        </a>
-                    </div>
-
-                    <div class="h-px bg-violet-700 opacity-30 my-3"></div>
-
-                    <form method="POST" action="/logout">
-                        @csrf   
-                        <button class="flex items-center gap-2 text-sm w-full hover:text-red-600">
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.625 9C5.625 8.85082 5.68426 8.70774 5.78975 8.60225C5.89524 8.49676 6.03832 8.4375 6.1875 8.4375H11.25V4.78125C11.25 3.65625 10.0621 2.8125 9 2.8125H3.65625C3.13428 2.81306 2.63384 3.02066 2.26475 3.38975C1.89566 3.75884 1.68806 4.25928 1.6875 4.78125V13.2188C1.68806 13.7407 1.89566 14.2412 2.26475 14.6102C2.63384 14.9793 3.13428 15.1869 3.65625 15.1875H9.28125C9.80322 15.1869 10.3037 14.9793 10.6727 14.6102C11.0418 14.2412 11.2494 13.7407 11.25 13.2188V9.5625H6.1875C6.03832 9.5625 5.89524 9.50324 5.78975 9.39775C5.68426 9.29226 5.625 9.14918 5.625 9ZM16.1476 8.60238L13.3351 5.78988C13.2288 5.68885 13.0872 5.63335 12.9405 5.63523C12.7938 5.63711 12.6537 5.69621 12.5499 5.79994C12.4462 5.90366 12.3871 6.0438 12.3852 6.19048C12.3834 6.33716 12.4388 6.47877 12.5399 6.58512L14.3919 8.4375H11.25V9.5625H14.3919L12.5399 11.4149C12.4855 11.4666 12.4419 11.5287 12.4119 11.5975C12.3818 11.6663 12.3658 11.7404 12.3649 11.8155C12.3639 11.8906 12.378 11.9651 12.4063 12.0346C12.4346 12.1042 12.4765 12.1673 12.5296 12.2204C12.5827 12.2735 12.6458 12.3154 12.7154 12.3437C12.7849 12.372 12.8594 12.3861 12.9345 12.3851C13.0096 12.3842 13.0837 12.3682 13.1525 12.3381C13.2213 12.3081 13.2834 12.2645 13.3351 12.2101L16.1476 9.39762C16.253 9.29214 16.3122 9.14912 16.3122 9C16.3122 8.85088 16.253 8.70786 16.1476 8.60238V8.60238Z" fill="#6D28D9"/>
-                            </svg>
-                            <span>Logout</span>
-                        </button>
-                    </form>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
 @endauth

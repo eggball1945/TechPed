@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->text('deskripsi')->nullable();
             $table->enum('kategori', ['pc', 'mini pc', 'laptop', 'gaming', 'hardware']);
             $table->decimal('harga', 14, 2);
-            $table->string('gambar')->nullable();
+            $table->json('gambar')->nullable();
             $table->integer('stok')->default(0);
             $table->timestamps();
         });

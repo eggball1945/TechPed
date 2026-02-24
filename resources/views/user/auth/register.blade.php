@@ -16,10 +16,16 @@
         <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" class="w-full border-b border-black/50 py-2 focus:outline-none focus:border-violet-700">
     </div>
 
-    <div class="flex items-center gap-4">
-        <span class="text-black opacity-70">Sudah punya akun?</span>
-        <a href="{{ route('user.login') }}" class="text-black opacity-70 font-medium">Login</a>
+    <div class="flex items-center gap-2 text-sm">
+        <span class="text-gray-600">
+            Sudah punya akun?
+        </span>
+
+        <a href="{{ route('user.login') }}" class="relative font-medium text-violet-700 transition-all duration-300 hover:text-violet-800 after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-violet-700 after:transition-all after:duration-300 hover:after:w-full">
+            Login
+        </a>
     </div>
+
 
     <button type="submit" class="w-full bg-violet-700 py-4 rounded text-white hover:bg-violet-800 transition">Daftar</button>
 </form>

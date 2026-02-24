@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -21,23 +22,32 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $loginType = filter_var($credentials['email_or_phone'], FILTER_VALIDATE_EMAIL) ? 'email' : 'no_telepon';
+        // Tentukan login pakai email atau no telepon
+        $loginType = filter_var(
+            $credentials['email_or_phone'],
+            FILTER_VALIDATE_EMAIL
+        ) ? 'email' : 'no_telepon';
 
-        if (Auth::guard('web')->attempt([$loginType => $credentials['email_or_phone'], 'password' => $credentials['password']])) {
+        if (Auth::guard('web')->attempt([
+            $loginType => $credentials['email_or_phone'],
+            'password' => $credentials['password']
+        ])) {
             $request->session()->regenerate();
             return redirect()->intended('/landing');
         }
 
         return back()->withErrors([
-            'email_or_phone' => 'Email/No Telepon atau password salah!',
+            'email_or_phone' => 'Email / No Telepon atau password salah!',
         ])->onlyInput('email_or_phone');
     }
 
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('/landing');
     }
 
@@ -52,6 +62,7 @@ class AuthController extends Controller
             'nama_depan' => 'required|string|max:255',
             'nama_belakang' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'no_telepon' => 'nullable|string|unique:users,no_telepon',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -59,7 +70,8 @@ class AuthController extends Controller
             'nama_depan' => $request->nama_depan,
             'nama_belakang' => $request->nama_belakang,
             'email' => $request->email,
-            'password' => $request->password,
+            'no_telepon' => $request->no_telepon,
+            'password' => Hash::make($request->password),
         ]);
 
         Auth::guard('web')->login($user);

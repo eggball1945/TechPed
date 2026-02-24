@@ -16,9 +16,14 @@
         @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
-    <div class="flex items-center gap-4">
-        <span class="text-black opacity-70">Tidak punya akun?</span>
-        <a href="{{ route('user.register') }}" class="text-black opacity-70 font-medium">Daftar</a>
+    <div class="flex items-center gap-2 text-sm">
+        <span class="text-gray-600">
+            Tidak punya akun?
+        </span>
+
+        <a href="{{ route('user.register') }}" class="relative font-medium text-violet-700 transition-all duration-300 hover:text-violet-800 after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-violet-700 after:transition-all after:duration-300 hover:after:w-full">
+            Register
+        </a>
     </div>
 
     <button type="submit" class="w-full bg-violet-700 py-4 rounded text-white hover:bg-violet-800 transition">Log In</button>
