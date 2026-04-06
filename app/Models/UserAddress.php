@@ -12,5 +12,11 @@ class UserAddress extends Model
         'kota',
         'provinsi',
         'kode_pos',
+        'ekspedisi',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -23,7 +23,7 @@
             </span>
         </a>
 
-        <a href="{{ route(auth('admin')->check() ? 'admin.product.index' : 'petugas.product.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs(auth('admin')->check() ? 'admin.product.*' : 'petugas.product.*') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
+        <a href="{{ route(auth('admin')->check() ? 'petugas.product.index' : 'petugas.product.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs(auth('admin')->check() ? 'admin.product.*' : 'petugas.product.*') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.3333 2.5H1.66667V7.5H2.5V16.6667C2.5 17.1087 2.67559 17.5326 2.98815 17.8452C3.30072 18.1577 3.72464 18.3333 4.16667 18.3333H15.8333C16.2754 18.3333 16.6993 18.1577 17.0118 17.8452C17.3244 17.5326 17.5 17.1087 17.5 16.6667V7.5H18.3333V2.5ZM3.33333 4.16667H16.6667V5.83333H3.33333V4.16667ZM15.8333 16.6667H4.16667V7.5H15.8333V16.6667ZM7.5 9.16667H12.5C12.5 9.60869 12.3244 10.0326 12.0118 10.3452C11.6993 10.6577 11.2754 10.8333 10.8333 10.8333H9.16667C8.72464 10.8333 8.30072 10.6577 7.98815 10.3452C7.67559 10.0326 7.5 9.60869 7.5 9.16667Z" fill="currentColor" fill-opacity="1"/>
             </svg>
@@ -59,17 +59,27 @@
                 <path d="M11.6667 1.66666H5C4.08333 1.66666 3.33333 2.41666 3.33333 3.33332V16.6667C3.33333 17.5833 4.08333 18.3333 5 18.3333H15C15.9167 18.3333 16.6667 17.5833 16.6667 16.6667V6.66666L11.6667 1.66666ZM15 16.6667H5V3.33332H10.8333V7.49999H15V16.6667ZM7.5 10.8333V15.8333H5.83333V10.8333H7.5ZM12.5 12.5V15.8333H14.1667V12.5H12.5ZM9.16667 9.16666V15.8333H10.8333V9.16666H9.16667Z" fill="currentColor" fill-opacity="1"/>
             </svg>
 
-            <span class="text-[15px] font-medium {{ request()->routeIs('admin.laporan.index') ? 'text-white' : 'text-gray-700' }}">
+            <span class="text-[15px] font-medium {{ request()->routeIs('petugas.laporan.index') ? 'text-white' : 'text-gray-700' }}">
                 Laporan
             </span>
         </a>
 
-        <a href="{{ route('petugas.struk') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('petugas.struk') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
+        <a href="{{ route('petugas.contact.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('petugas.contact.*') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6ZM20 6L12 11L4 6H20ZM20 18H4V8L12 13L20 8V18Z" fill="currentColor"/>
+            </svg>
+
+            <span class="text-[15px] font-medium {{ request()->routeIs('petugas.contact.*') ? 'text-white' : 'text-gray-700' }}">
+                Pesan
+            </span>
+        </a>
+
+        <a href="{{ route('petugas.struk.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('petugas.struk.*') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.8333 13.3333H5.83333C5.61232 13.3333 5.40036 13.4211 5.24408 13.5774C5.0878 13.7337 5 13.9457 5 14.1667C5 14.3877 5.0878 14.5996 5.24408 14.7559C5.40036 14.9122 5.61232 15 5.83333 15H10.8333C11.0543 15 11.2663 14.9122 11.4226 14.7559C11.5789 14.5996 11.6667 14.3877 11.6667 14.1667C11.6667 13.9457 11.5789 13.7337 11.4226 13.5774C11.2663 13.4211 11.0543 13.3333 10.8333 13.3333ZM7.5 8.33334H9.16667C9.38768 8.33334 9.59964 8.24554 9.75592 8.08926C9.9122 7.93298 10 7.72102 10 7.50001C10 7.27899 9.9122 7.06703 9.75592 6.91075C9.59964 6.75447 9.38768 6.66667 9.16667 6.66667H7.5C7.27899 6.66667 7.06703 6.75447 6.91075 6.91075C6.75446 7.06703 6.66667 7.27899 6.66667 7.50001C6.66667 7.72102 6.75446 7.93298 6.91075 8.08926C7.06703 8.24554 7.27899 8.33334 7.5 8.33334ZM17.5 10H15V2.50001C15.0006 2.35316 14.9624 2.20878 14.8892 2.08146C14.816 1.95415 14.7105 1.84843 14.5833 1.77501C14.4567 1.70187 14.3129 1.66336 14.1667 1.66336C14.0204 1.66336 13.8767 1.70187 13.75 1.77501L11.25 3.20834L8.75 1.77501C8.62332 1.70187 8.47961 1.66336 8.33333 1.66336C8.18705 1.66336 8.04335 1.70187 7.91667 1.77501L5.41667 3.20834L2.91667 1.77501C2.78998 1.70187 2.64628 1.66336 2.5 1.66336C2.35372 1.66336 2.21002 1.70187 2.08333 1.77501C1.95616 1.84843 1.85065 1.95415 1.77748 2.08146C1.70431 2.20878 1.66608 2.35316 1.66667 2.50001V15.8333C1.66667 16.4964 1.93006 17.1323 2.3989 17.6011C2.86774 18.0699 3.50363 18.3333 4.16667 18.3333H15.8333C16.4964 18.3333 17.1323 18.0699 17.6011 17.6011C18.0699 17.1323 18.3333 16.4964 18.3333 15.8333V10.8333C18.3333 10.6123 18.2455 10.4004 18.0893 10.2441C17.933 10.0878 17.721 10 17.5 10ZM4.16667 16.6667C3.94565 16.6667 3.73369 16.5789 3.57741 16.4226C3.42113 16.2663 3.33333 16.0544 3.33333 15.8333V3.94167L5 4.89167C5.12862 4.95885 5.27157 4.99393 5.41667 4.99393C5.56177 4.99393 5.70472 4.95885 5.83333 4.89167L8.33333 3.45834L10.8333 4.89167C10.9619 4.95885 11.1049 4.99393 11.25 4.99393C11.3951 4.99393 11.5381 4.95885 11.6667 4.89167L13.3333 3.94167V15.8333C13.3356 16.1176 13.3863 16.3994 13.4833 16.6667H4.16667ZM16.6667 15.8333C16.6667 16.0544 16.5789 16.2663 16.4226 16.4226C16.2663 16.5789 16.0543 16.6667 15.8333 16.6667C15.6123 16.6667 15.4004 16.5789 15.2441 16.4226C15.0878 16.2663 15 16.0544 15 15.8333V11.6667H16.6667V15.8333ZM10.8333 10H5.83333C5.61232 10 5.40036 10.0878 5.24408 10.2441C5.0878 10.4004 5 10.6123 5 10.8333C5 11.0544 5.0878 11.2663 5.24408 11.4226C5.40036 11.5789 5.61232 11.6667 5.83333 11.6667H10.8333C11.0543 11.6667 11.2663 11.5789 11.4226 11.4226C11.5789 11.2663 11.6667 11.0544 11.6667 10.8333C11.6667 10.6123 11.5789 10.4004 11.4226 10.2441C11.2663 10.0878 11.0543 10 10.8333 10Z" fill="currentColor" fill-opacity="1"/>
             </svg>
 
-            <span class="text-[15px] font-medium {{ request()->routeIs('petugas.struk') ? 'text-white' : 'text-gray-700' }}">
+            <span class="text-[15px] font-medium {{ request()->routeIs('petugas.struk.*') ? 'text-white' : 'text-gray-700' }}">
                 Struk
             </span>
         </a>
@@ -83,6 +93,17 @@
                 Setting
             </span>
         </a> --}}
+
+        <a href="{{ route('petugas.backup.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('petugas.backup.index') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+            </svg>
+            <span class="text-[15px] font-medium {{ request()->routeIs('petugas.backup.index') ? 'text-white' : 'text-gray-700' }}">
+                Backup & Restore
+            </span>
+        </a>
 
     </nav>
 

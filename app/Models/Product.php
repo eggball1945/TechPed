@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'products';
-    protected $appends = ['gambar_array'];
 
     protected $fillable = [
         'nama_produk',
@@ -23,18 +22,30 @@ class Product extends Model
         'gambar' => 'array',
     ];
 
+    protected $appends = ['gambar_array'];
+
     public function getGambarArrayAttribute()
     {
-        if (!$this->gambar) return [];
-        
-        $decoded = json_decode($this->gambar, true);
-        
-        // Jika berhasil di-decode sebagai JSON array
-        if (is_array($decoded)) {
-            return $decoded;
+        if (is_array($this->gambar)) {
+            return $this->gambar;
         }
-        
-        // Fallback jika format lama pakai koma
-        return explode(',', $this->gambar);
+
+        if (is_string($this->gambar)) {
+            // coba decode JSON dulu
+            $decoded = json_decode($this->gambar, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                return $decoded;
+            }
+
+            // fallback: comma separated
+            return explode(',', $this->gambar);
+        }
+
+        return [];
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

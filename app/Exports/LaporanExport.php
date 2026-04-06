@@ -17,12 +17,23 @@ class LaporanExport implements
     WithColumnWidths,
     WithCustomStartCell
 {
+    protected $tahun;
+    protected $user_id;
+
+    public function __construct(int $tahun, $user_id = null)
+    {
+        $this->tahun = $tahun;
+        $this->user_id = $user_id;
+    }
+
     public function collection()
     {
         return DB::table('order_product')
             ->join('products', 'products.id', '=', 'order_product.product_id')
             ->join('orders', 'orders.id', '=', 'order_product.order_id')
-            ->whereIn('orders.status', ['dikirim', 'terkirim'])
+            ->whereIn('orders.status', ['dikirim', 'selesai'])
+            ->whereYear('orders.tanggal', $this->tahun)
+            ->when($this->user_id, fn($q) => $q->where('orders.user_id', $this->user_id))
             ->select(
                 'products.nama_produk',
                 DB::raw('SUM(order_product.jumlah) as unit_terjual'),
@@ -31,6 +42,7 @@ class LaporanExport implements
             )
             ->groupBy('products.nama_produk')
             ->orderByDesc('pendapatan')
+            ->take(5)
             ->get();
     }
 

@@ -13,7 +13,7 @@ class ProfileController extends Controller
 {
     public function edit()
     {
-        $user = Auth::user()->load('address');
+        $user = Auth::user()->load('addresses');
         return view('user.profile.index', compact('user'));
     }
 
@@ -22,16 +22,16 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'nama_depan'       => 'required|string|max:255',
-            'email'            => 'required|email',
-            'no_telepon'       => 'nullable|string|max:20',
+            'nama_depan' => 'required|string|max:255',
+            'email' => 'required|email',
+            'no_telepon' => 'nullable|string|max:20',
 
-            'alamat'           => 'nullable|string',
-            'kota'             => 'nullable|string|max:100',
-            'provinsi'         => 'nullable|string|max:100',
-            'kode_pos'         => 'nullable|string|max:10',
+            'alamat' => 'nullable|string',
+            'kota' => 'nullable|string|max:100',
+            'provinsi' => 'nullable|string|max:100',
+            'kode_pos' => 'nullable|string|max:10',
 
-            'password'         => 'nullable|min:8|confirmed',
+            'password' => 'nullable|min:8|confirmed',
             'current_password' => 'required_with:password',
         ]);
 
@@ -54,16 +54,16 @@ class ProfileController extends Controller
 
             $user->update([
                 'nama_depan' => $request->nama_depan,
-                'email'      => $request->email,
+                'email' => $request->email,
                 'no_telepon' => $request->no_telepon,
             ]);
 
             if ($request->filled('alamat')) {
-                $user->address()->updateOrCreate(
+                $user->addresses()->updateOrCreate(
                     ['user_id' => $user->id],
                     [
-                        'alamat'   => $request->alamat,
-                        'kota'     => $request->kota,
+                        'alamat' => $request->alamat,
+                        'kota' => $request->kota,
                         'provinsi' => $request->provinsi,
                         'kode_pos' => $request->kode_pos,
                     ]

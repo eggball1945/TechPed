@@ -3,7 +3,7 @@
         <a href="{{ route('admin.users.index') }}" class="px-4 py-2 rounded-full flex items-center {{ request('role') === null ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}"> Semua</a>
         <a href="{{ route('admin.users.index', ['role' => 'user']) }}" class="px-4 py-2 rounded-full flex items-center {{ request('role') === 'user' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">User</a>
         <a href="{{ route('admin.users.index', ['role' => 'petugas']) }}" class="px-4 py-2 rounded-full flex items-center {{ request('role') === 'petugas' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Petugas</a>
-                <a href="{{ route('admin.users.index', ['role' => 'admin']) }}" class="px-4 py-2 rounded-full flex items-center {{ request('role') === 'admin' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Admin</a>
+        <a href="{{ route('admin.users.index', ['role' => 'admin']) }}" class="px-4 py-2 rounded-full flex items-center {{ request('role') === 'admin' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Admin</a>
     </div>
 
     <div class="w-[1037px] overflow-x-auto">
@@ -37,9 +37,9 @@
                         @if($item->role === 'user')
                             <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[50px] h-[20px] flex items-center justify-center bg-slate-200 text-slate-700">Pelanggan</span>
                         @elseif($item->role === 'petugas')
-                            <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[45px] h-[20px] flex items-center justify-center bg-violet-700/40 text-violet-700">Petugas</span>
+                            <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[50px] h-[20px] flex items-center justify-center bg-violet-700/40 text-violet-700">Petugas</span>
                         @else
-                            <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[45px] h-[20px] flex items-center justify-center bg-violet-700/40 text-violet-700">Admin</span>
+                            <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[50px] h-[20px] flex items-center justify-center bg-violet-700/40 text-violet-700">Admin</span>
                         @endif
                     </td>
 
@@ -57,12 +57,12 @@
                     <td class="px-4">
                         @if($item->role === 'user')
                             @if($item->is_suspended ?? false)
-                                <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[45px] h-[20px] flex items-center justify-center bg-red-100 text-red-600">Suspend</span>
+                                <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[50px] h-[20px] flex items-center justify-center bg-red-100 text-red-600">Suspend</span>
                             @else
-                                <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[45px] h-[20px] flex items-center justify-center bg-green-100 text-green-600">Aktif</span>
+                                <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[50px] h-[20px] flex items-center justify-center bg-green-100 text-green-600">Aktif</span>
                             @endif
                         @else
-                            <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[45px] h-[20px] flex items-center justify-center bg-green-100 text-green-600">Aktif</span>
+                            <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[50px] h-[20px] flex items-center justify-center bg-green-100 text-green-600">Aktif</span>
                         @endif
                     </td>
 
@@ -74,7 +74,7 @@
                             @if($item->role === 'user')
                                 <form action="{{ route('admin.users.destroy', $item->id) }}" method="POST">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="p-1 rounded cursor-pointer hover:bg-slate-200 transition" aria-label="Hapus User">
+                                    <button type="submit" class="w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150" aria-label="Hapus User">
                                         <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 3.5H9.75M4.125 5.375V10.375M6.625 5.375V10.375M4.125 1H6.625C6.79076 1 6.94973 1.06585 7.06694 1.18306C7.18415 1.30027 7.25 1.45924 7.25 1.625V3.5H3.5V1.625C3.5 1.45924 3.56585 1.30027 3.68306 1.18306C3.80027 1.06585 3.95924 1 4.125 1ZM1.625 3.5H9.125V11.625C9.125 11.7908 9.05915 11.9497 8.94194 12.0669C8.82473 12.1842 8.66576 12.25 8.5 12.25H2.25C2.08424 12.25 1.92527 12.1842 1.80806 12.0669C1.69085 11.9497 1.625 11.7908 1.625 11.625V3.5Z" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
@@ -84,7 +84,7 @@
                             @elseif($item->role === 'petugas')
                                 <form action="{{ route('admin.petugas.destroy', $item->id) }}" method="POST">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="p-1 rounded cursor-pointer hover:bg-slate-200 transition" aria-label="Hapus Petugas">
+                                    <button type="submit" class="w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150" aria-label="Hapus Petugas">
                                         <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 3.5H9.75M4.125 5.375V10.375M6.625 5.375V10.375M4.125 1H6.625C6.79076 1 6.94973 1.06585 7.06694 1.18306C7.18415 1.30027 7.25 1.45924 7.25 1.625V3.5H3.5V1.625C3.5 1.45924 3.56585 1.30027 3.68306 1.18306C3.80027 1.06585 3.95924 1 4.125 1ZM1.625 3.5H9.125V11.625C9.125 11.7908 9.05915 11.9497 8.94194 12.0669C8.82473 12.1842 8.66576 12.25 8.5 12.25H2.25C2.08424 12.25 1.92527 12.1842 1.80806 12.0669C1.69085 11.9497 1.625 11.7908 1.625 11.625V3.5Z" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
@@ -98,7 +98,7 @@
                             @if($item->role === 'user')
                                 <form action="{{ route('admin.users.suspend', $item->id) }}" method="POST">
                                     @csrf @method('PUT')
-                                    <button type="submit" class="p-1 rounded cursor-pointer hover:bg-slate-200 transition" aria-label="{{ ($item->is_suspended ?? false) ? 'Aktifkan User' : 'Suspend User' }}">
+                                    <button type="submit" class="w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150" aria-label="{{ ($item->is_suspended ?? false) ? 'Aktifkan User' : 'Suspend User' }}">
                                         @if($item->is_suspended ?? false)
                                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M5.62509 10.1062L3.45634 7.93749C3.33948 7.82063 3.18098 7.75497 3.01572 7.75497C2.85045 7.75497 2.69195 7.82063 2.57509 7.93749C2.45823 8.05435 2.39258 8.21285 2.39258 8.37811C2.39258 8.45994 2.4087 8.54097 2.44001 8.61658C2.47133 8.69218 2.51723 8.76087 2.57509 8.81874L5.18759 11.4312C5.43134 11.675 5.82509 11.675 6.06884 11.4312L12.6813 4.81874C12.7982 4.70188 12.8639 4.54338 12.8639 4.37811C12.8639 4.21285 12.7982 4.05435 12.6813 3.93749C12.5645 3.82063 12.406 3.75497 12.2407 3.75497C12.0754 3.75497 11.917 3.82063 11.8001 3.93749L5.62509 10.1062Z" fill="#6D28D9"/>
@@ -131,19 +131,19 @@
 
         <div class="flex gap-1">
             @if ($items->onFirstPage())
-                <span class="px-3 py-1 border rounded cursor-pointer text-slate-400">Sebelumnya</span>
+                <span class="px-3 py-1 border rounded text-slate-400 cursor-not-allowed">Sebelumnya</span>
             @else
-                <a href="{{ $items->previousPageUrl() }}" class="px-3 py-1 border rounded cursor-pointer hover:bg-slate-100">
+                <a href="{{ $items->previousPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
                     Sebelumnya
                 </a>
             @endif
 
             @if ($items->hasMorePages())
-                <a href="{{ $items->nextPageUrl() }}" class="px-3 py-1 border cursor-pointer rounded hover:bg-slate-100">
+                <a href="{{ $items->nextPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
                     Selanjutnya
                 </a>
             @else
-                <span class="px-3 py-1 border rounded text-slate-400 cursor-pointer">Selanjutnya</span>
+                <span class="px-3 py-1 border rounded text-slate-400 cursor-not-allowed">Selanjutnya</span>
             @endif
         </div>
     </div>

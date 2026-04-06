@@ -1,111 +1,118 @@
-<div class="container mx-auto px-6 py-16">
-    {{-- HEADER --}}
-    <div class="flex flex-col gap-5 mb-10">
-        <div class="flex items-center gap-4">
-            <div class="w-5 h-10 bg-violet-700 rounded-md"></div>
-            <span class="font-semibold text-base text-violet-700">
-                Unggulan
-            </span>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    {{-- HEADER (BARU) --}}
+    <div class="flex flex-col gap-4 mb-12 text-left animate-fade-in-up">
+        <div class="flex items-center justify-start gap-4">
+            <div class="w-8 h-2 bg-violet-700 rounded-full"></div>
+            <span class="font-black text-xs uppercase tracking-[0.3em] text-violet-700">Unggulan</span>
         </div>
-        <h2 class="font-semibold text-4xl leading-tight text-black">
-            Produk Baru Kami
-        </h2>
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter">Produk <span class="text-violet-700">Terbaru</span> Kami</h2>
     </div>
 
-    {{-- LIST PRODUK --}}
-    <div class="flex gap-[60px]">
-        {{-- PRODUK BESAR --}}
-        <div class="w-[570px] h-[600px] bg-black rounded p-6 relative overflow-hidden">
-            <img src="{{ asset('images/produk/tuf.webp') }}" class="w-full h-full object-contain scale-110"
-                alt="ASUS TUF A15" />
+    @if(isset($newProducts) && $newProducts->count() >= 4)
+        @php
+            $products = $newProducts->take(4);
+            $largeProduct = $products[0];
+            $mediumProduct = $products[1];
+            $smallProduct1 = $products[2];
+            $smallProduct2 = $products[3];
 
-            <div class="absolute bottom-6 left-6 flex flex-col gap-4 max-w-[260px]">
-                <span class="font-semibold text-[24px] text-white">
-                    ASUS TUF A15
-                </span>
-                <span class="font-normal text-[14px] leading-[21px] text-white opacity-80">
-                    Bodi tangguh, garis tegas futuristik, dan tampilan gaming yang profesional.
-                </span>
-                <a href="#" class="group w-fit inline-block">
-                    <span class="font-medium text-base text-white">
-                        Belanja Sekarang
-                    </span>
-                    <div
-                        class="w-[142px] h-[2px] bg-white mt-1 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100">
-                    </div>
-                </a>
-            </div>
-        </div>
+            function getFirstImage($product) {
+                $images = $product->gambar_array ?? [];
+                return !empty($images) ? asset('storage/' . $images[0]) : asset('images/no-image.png');
+            }
+        @endphp
 
-        {{-- KOLOM KANAN --}}
-        <div class="flex flex-col gap-8">
-            {{-- CPU COOLER --}}
-            <div class="w-[570px] h-[284px] bg-[#0d0d0d] rounded p-6 flex justify-between items-center">
-                <div class="flex flex-col gap-6 max-w-[260px]">
-                    <div class="flex flex-col gap-3">
-                        <span class="font-semibold text-[24px] text-neutral-50">
-                            CPU Cooler
-                        </span>
-                        <span class="font-normal text-[14px] text-neutral-50 opacity-80">
-                            CPU Cooler dengan performa tinggi dan RGB
-                        </span>
-                    </div>
-                    <a href="#" class="group w-fit inline-block">
-                        <span class="font-medium text-base text-white">
-                            Belanja Sekarang
-                        </span>
-                        <div
-                            class="w-[142px] h-[2px] bg-white mt-1 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100">
-                        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            <div class="relative bg-black rounded-2xl overflow-hidden group h-[500px] md:h-[632px]">
+                <div class="absolute inset-0 z-0">
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-white/20 rounded-full blur-3xl"></div>
+                </div>
+                <img src="{{ getFirstImage($largeProduct) }}"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 relative z-10"
+                    alt="{{ $largeProduct->nama_produk }}">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20"></div>
+                <div class="absolute bottom-6 left-6 right-6 flex flex-col gap-4 text-white z-30">
+                    <h3 class="font-bold text-2xl md:text-3xl line-clamp-2 tracking-tight">{{ $largeProduct->nama_produk }}</h3>
+                    <p class="text-sm md:text-base opacity-70 line-clamp-3">{{ Str::limit($largeProduct->deskripsi ?? 'Deskripsi tidak tersedia', 100) }}</p>
+                    <a href="{{ route('user.products.show', $largeProduct->id) }}"
+                    class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest group/link w-fit">
+                        <span>Belanja Sekarang</span>
+                        <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                        </svg>
                     </a>
                 </div>
-                <img src="/image/cooler.png" class="w-[220px] h-[220px] object-contain" alt="CPU Cooler" />
             </div>
 
-            {{-- SPEAKER & RAM --}}
-            <div class="flex gap-[30px]">
-                {{-- SPEAKER --}}
-                <div class="w-[270px] h-[284px] bg-black rounded p-6 flex flex-col justify-between">
-                    <img src="/image/speaker.png" class="w-full h-[140px] object-contain" alt="Speaker" />
-                    <div class="flex flex-col gap-3">
-                        <span class="font-semibold text-[20px] text-neutral-50">
-                            Speakers
-                        </span>
-                        <span class="font-normal text-[14px] text-neutral-50 opacity-80">
-                            Amazon wireless speakers
-                        </span>
-                        <a href="#" class="group w-fit inline-block">
-                            <span class="font-medium text-base text-white">
-                                Belanja Sekarang
-                            </span>
-                            <div
-                                class="w-[142px] h-[2px] bg-white mt-1 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100">
-                            </div>
-                        </a>
+            <div class="flex flex-col gap-6 md:gap-8">
+                <div class="relative bg-black rounded-2xl overflow-hidden group h-[280px] md:h-[300px]">
+                    <div class="absolute inset-0 z-0">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-white/20 rounded-full blur-3xl"></div>
+                    </div>
+                    <div class="flex items-center justify-between h-full p-6 relative z-10">
+                        <div class="flex-1 pr-4">
+                            <h3 class="font-bold text-xl md:text-2xl text-white mb-2 line-clamp-2 tracking-tight">{{ $mediumProduct->nama_produk }}</h3>
+                            <p class="text-sm text-white/60 line-clamp-2 mb-4">{{ Str::limit($mediumProduct->deskripsi ?? 'Deskripsi tidak tersedia', 70) }}</p>
+                            <a href="{{ route('user.products.show', $mediumProduct->id) }}"
+                            class="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest group/link">
+                                <span>Belanja Sekarang</span>
+                                <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="w-32 md:w-40 h-32 md:h-40 flex-shrink-0 relative">
+                            <div class="absolute inset-0 bg-white/20 rounded-full blur-2xl"></div>
+                            <img src="{{ getFirstImage($mediumProduct) }}" class="relative w-full h-full object-contain z-10 transform group-hover:scale-105 transition-transform duration-500" alt="{{ $mediumProduct->nama_produk }}">
+                        </div>
                     </div>
                 </div>
 
-                {{-- RAM --}}
-                <div class="w-[270px] h-[284px] bg-black rounded p-6 flex flex-col justify-between">
-                    <img src="/image/ram.png" class="w-full h-[140px] object-contain" alt="RAM TridentZ" />
-                    <div class="flex flex-col gap-3">
-                        <span class="font-semibold text-[20px] text-neutral-50">
-                            RAM TridentZ
-                        </span>
-                        <span class="font-normal text-[14px] text-neutral-50 opacity-80">
-                            RAM Super Cepat dengan RGB
-                        </span>
-                        <a href="#" class="group w-fit inline-block">
-                            <span class="font-medium text-base text-white">
-                                Belanja Sekarang
-                            </span>
-                            <div
-                                class="w-[142px] h-[2px] bg-white mt-1 scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100">
+                <div class="grid grid-cols-2 gap-3 sm:gap-6">
+                    @foreach([$smallProduct1, $smallProduct2] as $product)
+                        <div class="bg-black rounded-2xl overflow-hidden group h-[260px] sm:h-[280px] md:h-[300px] flex flex-col justify-between p-3 sm:p-5 relative">
+                            <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-white/10 rounded-full blur-3xl"></div>
                             </div>
-                        </a>
-                    </div>
+                            
+                            {{-- Stabilized Image Container --}}
+                            <div class="flex items-center justify-center h-28 sm:h-32 md:h-40 w-full relative z-10 mt-2 overflow-hidden">
+                                <img src="{{ getFirstImage($product) }}" 
+                                    class="max-h-full max-w-full object-contain transition-all duration-500 group-hover:scale-[1.07]" 
+                                    style="backface-visibility: hidden; transform: translateZ(0); -webkit-font-smoothing: subpixel-antialiased;"
+                                    alt="{{ $product->nama_produk }}">
+                            </div>
+
+                            <div class="mt-2 relative z-10">
+                                <h4 class="font-bold text-sm sm:text-lg text-white line-clamp-1 tracking-tight">{{ $product->nama_produk }}</h4>
+                                <p class="text-[10px] sm:text-xs text-white/60 mt-1 line-clamp-2 italic">{{ Str::limit($product->deskripsi ?? 'Deskripsi tidak tersedia', 40) }}</p>
+                                <a href="{{ route('user.products.show', $product->id) }}"
+                                class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest mt-2 sm:mt-3 group/link">
+                                    <span>Belanja Sekarang</span>
+                                    <svg class="w-3 h-3 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="text-center text-gray-500 py-16">
+            <p class="text-lg">Belum ada produk baru.</p>
+            <p class="text-sm mt-2">Pastikan database memiliki minimal 4 produk.</p>
+        </div>
+    @endif
 </div>
+
+<style>
+    @keyframes fade-in-up {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+        animation: fade-in-up 0.8s ease-out both;
+    }
+</style>

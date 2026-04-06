@@ -171,7 +171,7 @@
 
 </div>
 
-<div id="cardEditProduk" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+<div id="cardEditProduk" class="hidden fixed inset-0 bg-black/40 items-center justify-center z-50">
     <div class="w-[392px] max-h-[600px] overflow-y-auto bg-white rounded-lg shadow-lg p-4 relative">
 
         <h2 class="font-medium text-[15px] leading-[24px] text-start text-black mb-4">

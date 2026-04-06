@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Order;
 use App\Models\User;
+use App\Notifications\OrderStatusNotification;
 
 class OrderController extends Controller
 {
@@ -19,6 +20,10 @@ class OrderController extends Controller
             return 'petugas';
         }
 
+        if (auth()->check()) {
+            return 'user';
+        }
+
         abort(403);
     }
 
@@ -28,7 +33,13 @@ class OrderController extends Controller
         $filter = $request->filter;
         $status = $request->status;
 
-        $orders = Order::with(['user', 'products']);
+        $role = $this->userRole();
+        $orders = Order::with(['user.addresses', 'products']);
+
+        // Regular users can only see their own orders
+        if ($role === 'user') {
+            $orders->where('user_id', auth()->id());
+        }
 
         if ($search) {
             $orders->where(function ($q) use ($search) {
@@ -72,7 +83,6 @@ class OrderController extends Controller
         }
 
         $orders = $orders->latest()->paginate(10)->withQueryString();
-        $role = $this->userRole();
 
         return view("{$role}.order.index", compact('orders'));
     }
@@ -95,13 +105,81 @@ class OrderController extends Controller
             return back()->with('error', 'Order sudah dikirim atau selesai.');
         }
 
-        $order->update([
-            'status' => 'dikirim'
-        ]);
+        $updates = ['status' => 'dikirim'];
+
+        // Generate resi otomatis jika belum ada
+        if (empty($order->resi) || $order->resi === '-') {
+            $updates['resi'] = 'TRK-' . mt_rand(1000000000, 9999999999);
+        }
+
+        $order->update($updates);
+
+        // Notify user
+        $order->user->notify(new OrderStatusNotification($order, 'dikirim'));
 
         $role = $this->userRole();
         return redirect()->route("{$role}.order.index")
-            ->with('success', 'Order berhasil diteruskan ke petugas.');
+            ->with('success', 'Order berhasil dikirim ke pelanggan.');
+    }
+
+    public function complete(Order $order)
+    {
+        if ($order->status !== 'dikirim') {
+            return back()->with('error', 'Hanya pesanan yang sudah dikirim yang dapat diselesaikan.');
+        }
+
+        $order->update(['status' => 'selesai']);
+
+        // Notify user
+        $order->user->notify(new OrderStatusNotification($order, 'selesai'));
+
+        $role = $this->userRole();
+        if ($role === 'user') {
+            return redirect()->route('orders')->with('success', 'Pesanan telah selesai. Terima kasih telah berbelanja!');
+        }
+
+        return redirect()->route("{$role}.order.index")
+            ->with('success', 'Pesanan berhasil diselesaikan.');
+    }
+
+    /**
+     * Cancel order (for users only)
+     */
+    public function cancel(Order $order)
+    {
+        $role = $this->userRole();
+
+        // Only users can cancel their own orders
+        if ($role !== 'user') {
+            abort(403, 'Anda tidak memiliki izin untuk membatalkan pesanan ini.');
+        }
+
+        // Ensure the order belongs to the logged-in user
+        if ($order->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        // Only allow cancellation if status is 'tertunda' or 'diproses'
+        if (!in_array($order->status, ['tertunda', 'diproses'])) {
+            return back()->with('error', 'Pesanan tidak dapat dibatalkan.');
+        }
+
+        $oldStatus = $order->status;
+
+        // Update status
+        $order->update(['status' => 'dibatalkan']);
+        
+        // Notify user
+        $order->user->notify(new OrderStatusNotification($order, 'dibatalkan'));
+
+        // Restore stock if it was previously reduced
+        if (in_array($oldStatus, ['diproses', 'dikirim'])) {
+            foreach ($order->products as $product) {
+                $product->increment('stok', $product->pivot->jumlah);
+            }
+        }
+
+        return redirect()->route('orders')->with('success', 'Pesanan berhasil dibatalkan.');
     }
 
     public function destroy(Order $order): RedirectResponse
@@ -111,5 +189,23 @@ class OrderController extends Controller
         $role = $this->userRole();
         return redirect()->route("{$role}.order.index")
             ->with('success', 'Order berhasil dihapus.');
+    }  
+
+    public function userDestroy(Order $order)
+    {
+        // Only users can delete their own orders
+        if ($order->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        // Only allow deletion if status is 'dibatalkan' or 'dikirim'
+        if (!in_array($order->status, ['dibatalkan', 'dikirim'])) {
+            return back()->with('error', 'Pesanan tidak dapat dihapus. Pesanan harus dibatalkan terlebih dahulu.');
+        }
+
+        $order->delete();
+
+        return redirect()->route('orders')
+            ->with('success', 'Pesanan berhasil dihapus.');
     }
 }

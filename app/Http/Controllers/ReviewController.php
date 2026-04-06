@@ -1,19 +1,89 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Models\Order;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
     public function index()
     {
-        $reviews = Review::with('user', 'product')
+        $reviews = Review::with(['user', 'product'])
             ->latest()
             ->paginate(10);
 
-        return view('admin.review.index', compact('reviews'));
+        if (auth('admin')->check()) {
+            return view('admin.reviews.index', compact('reviews'));
+        }
+
+        if (auth('petugas')->check()) {
+            return view('petugas.reviews.index', compact('reviews'));
+        }
+
+        abort(403);
+    }
+
+    /**
+     * Store a newly created review.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'order_id'   => 'required|exists:orders,id',
+            'product_id' => 'required|exists:products,id',
+            'rating'     => 'required|integer|min:1|max:5',
+            'komentar'   => 'nullable|string',
+            'show_name'  => 'boolean',
+        ]);
+
+        // Ensure the order belongs to the authenticated user and is shipped or completed (final status)
+        $order = Order::where('user_id', Auth::id())
+            ->whereIn('status', ['dikirim', 'selesai'])
+            ->findOrFail($request->order_id);
+
+        // Multiple reviews allowed per product/order as per user request
+
+        $review = Review::create([
+            'user_id'    => Auth::id(),
+            'product_id' => $request->product_id,
+            'order_id'   => $request->order_id,
+            'rating'     => $request->rating,
+            'komentar'   => $request->komentar,
+            'show_name'  => $request->boolean('show_name'),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'review'  => $review,
+            'message' => 'Ulasan berhasil ditambahkan.'
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $review = Review::findOrFail($id);
+
+        // Check if the authenticated user is the owner, or if admin/petugas is logged in
+        $isOwner = Auth::check() && Auth::id() === $review->user_id;
+        $isAdmin = auth('admin')->check();
+        $isPetugas = auth('petugas')->check();
+
+        if (!$isOwner && !$isAdmin && !$isPetugas) {
+            abort(403, 'Anda tidak memiliki akses untuk menghapus ulasan ini.');
+        }
+
+        $review->delete();
+
+        if (request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Ulasan berhasil dihapus.'
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Ulasan berhasil dihapus.');
     }
 }

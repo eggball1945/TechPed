@@ -14,6 +14,7 @@
                     Kelola katalog produk, inventaris, dan kategori Anda.
                 </p>
             </div>
+
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
@@ -69,6 +70,6 @@
 
         </div>
 
-        @include('admin.laporan.content')
+        @include('admin.laporan.content', ['reviews' => $reviews])
     </div>
 @endsection

@@ -9,11 +9,13 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    
+    use Notifiable;
+
     protected $fillable = [
         'nama_depan',
         'nama_belakang',
         'username',
+        'email',
         'no_telepon',
         'password',
         'is_suspended'
@@ -30,9 +32,9 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function address()
+    public function addresses()
     {
-        return $this->hasOne(UserAddress::class);
+        return $this->hasMany(UserAddress::class);
     }
 
 }

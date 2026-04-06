@@ -2,13 +2,15 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-6">
-    <div class="mb-6">
-        <h1 class="text-[18px] font-semibold text-black">
-            Dashboard
-        </h1>
-        <p class="text-[12px] text-gray-600">
-            Selamat datang! Ini apa yang terjadi pada hari ini.
-        </p>
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-[18px] font-semibold text-black">
+                Dashboard
+            </h1>
+            <p class="text-[12px] text-gray-600">
+                Selamat datang! Ini apa yang terjadi pada hari ini.
+            </p>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
@@ -40,9 +42,14 @@
             </h2>
         </div>
 
-        @php
-            $totalProducts = \App\Models\Product::count();
-        @endphp
+        <div class="bg-[#D094FC]/50 rounded-xl border border-[#6D28D9] h-[120px] flex flex-col items-center justify-center text-center gap-1">
+            <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.3334 30.625V27.7083C23.3334 26.1612 22.7188 24.6775 21.6248 23.5835C20.5308 22.4896 19.0471 21.875 17.5 21.875H8.75002C7.20292 21.875 5.71919 22.4896 4.62523 23.5835C3.53127 24.6775 2.91669 26.1612 2.91669 27.7083V30.625M23.3334 4.56166C24.5842 4.88595 25.6921 5.61642 26.4829 6.63842C27.2737 7.66042 27.7028 8.91608 27.7028 10.2083C27.7028 11.5006 27.2737 12.7562 26.4829 13.7782C25.6921 14.8002 24.5842 15.5307 23.3334 15.855M32.0834 30.625V27.7083C32.0824 26.4158 31.6522 25.1603 30.8603 24.1388C30.0685 23.1173 28.9598 22.3877 27.7084 22.0646" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13.125 16.0417C16.3467 16.0417 18.9584 13.43 18.9584 10.2083C18.9584 6.98667 16.3467 4.375 13.125 4.375C9.90336 4.375 7.29169 6.98667 7.29169 10.2083C7.29169 13.43 9.90336 16.0417 13.125 16.0417Z" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="text-[13px] font-medium text-[#6D28D9]">User Aktif</p>
+            <h2 class="text-[20px] font-semibold text-[#6D28D9]">{{ number_format($activeUsers) }}</h2>
+        </div>  
 
         <div class="bg-[#FFF1EA] rounded-xl border border-[#F8A07A] h-[120px] flex flex-col items-center justify-center text-center gap-1">
             <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,41 +62,25 @@
 
     <div class="flex flex-col gap-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-white rounded-xl p-6 shadow-sm">
-                <p class="text-left text-[13px] font-medium mb-6">
-                    Ringkasan Pendapatan
-                </p>
+            <div class="bg-white rounded-xl p-6 border border-gray-300">
+                <p class="text-left text-[13px] font-medium mb-6">Ringkasan Pendapatan</p>
+                <div class="flex items-end justify-center gap-4 sm:gap-6 lg:gap-8 h-[260px]">
+                    @php $graphMax = max($pendapatan6Bulan) ?: 1; @endphp
+                    @foreach($pendapatan6Bulan as $key => $pendapatan)
+                        @php
+                            $height = ($pendapatan / $graphMax) * 200;
+                            $height = $height ?: 5;
+                        @endphp
+                        <div class="flex flex-col items-center gap-2 relative group w-12 sm:w-14 lg:w-16">
+                            <span class="mb-2 text-[8px] text-gray-600 opacity-0 group-hover:opacity-100 transition-all duration-200 absolute -top-10 whitespace-nowrap bg-white px-2 py-1 rounded shadow-sm border border-gray-100 font-bold">
+                                {{ $pendapatan > 0 ? 'Rp ' . number_format($pendapatan, 0, ',', '.') : 'Rp 0' }}
+                            </span>
 
-                <div class="flex items-end justify-center gap-4 h-[260px]">
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="w-[50px] h-[90px] bg-violet-700 rounded-t-lg"></div>
-                        <span class="text-[12px]">Jan</span>
-                    </div>
+                            <div class="w-full rounded-t-lg bg-violet-700 transition-all duration-500 hover:bg-violet-800" style="height: {{ $height }}px;"></div>
 
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="w-[50px] h-[240px] bg-violet-700 rounded-t-lg"></div>
-                        <span class="text-[12px]">Feb</span>
-                    </div>
-
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="w-[50px] h-[90px] bg-violet-700 rounded-t-lg"></div>
-                        <span class="text-[12px]">Mar</span>
-                    </div>
-
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="w-[50px] h-[180px] bg-violet-700 rounded-t-lg"></div>
-                        <span class="text-[12px]">Apr</span>
-                    </div>
-
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="w-[50px] h-[120px] bg-violet-700 rounded-t-lg"></div>
-                        <span class="text-[12px]">May</span>
-                    </div>
-
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="w-[50px] h-[150px] bg-violet-700 rounded-t-lg"></div>
-                        <span class="text-[12px]">Jun</span>
-                    </div>
+                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">{{ $bulanLabel[$key] }}</span>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -109,65 +100,26 @@
             </h3>
 
             <div class="flex flex-col gap-3">
+                @forelse($topProducts as $key => $product)
                 <div class="flex items-center justify-between border-b border-black/10 pb-2">
                     <div class="flex items-center gap-3">
                         <div class="w-[25px] h-[25px] bg-violet-700 rounded-md flex items-center justify-center">
-                            <span class="text-[12px] font-medium text-white">1</span>
+                            <span class="text-[12px] font-medium text-white">{{ $key + 1 }}</span>
                         </div>
 
                         <div>
-                            <p class="text-[12px] font-medium">Wireless Headphones</p>
-                            <p class="text-[11px] text-gray-500">1245 sales</p>
+                            <p class="text-[12px] font-medium">{{ $product->nama_produk }}</p>
+                            <p class="text-[11px] text-gray-500">{{ number_format($product->total_sold, 0, ',', '.') }} sold</p>
                         </div>
                     </div>
 
-                    <p class="text-[12px] font-medium">Rp. 12.000.000</p>
+                    <p class="text-[12px] font-medium">Rp. {{ number_format($product->harga, 0, ',', '.') }}</p>
                 </div>
-
-                <div class="flex items-center justify-between border-b border-black/10 pb-2">
-                    <div class="flex items-center gap-3">
-                        <div class="w-[25px] h-[25px] bg-violet-700 rounded-md flex items-center justify-center">
-                            <span class="text-[12px] font-medium text-white">2</span>
-                        </div>
-
-                        <div>
-                            <p class="text-[12px] font-medium">Wireless Headphones</p>
-                            <p class="text-[11px] text-gray-500">1245 sales</p>
-                        </div>
-                    </div>
-
-                    <p class="text-[12px] font-medium">Rp. 12.000.000</p>
+                @empty
+                <div class="flex items-center justify-center py-4">
+                    <p class="text-[12px] text-gray-500 italic">Belum ada data penjualan.</p>
                 </div>
-
-                <div class="flex items-center justify-between border-b border-black/10 pb-2">
-                    <div class="flex items-center gap-3">
-                        <div class="w-[25px] h-[25px] bg-violet-700 rounded-md flex items-center justify-center">
-                            <span class="text-[12px] font-medium text-white">3</span>
-                        </div>
-
-                        <div>
-                            <p class="text-[12px] font-medium">Wireless Headphones</p>
-                            <p class="text-[11px] text-gray-500">1245 sales</p>
-                        </div>
-                    </div>
-
-                    <p class="text-[12px] font-medium">Rp. 12.000.000</p>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-[25px] h-[25px] bg-violet-700 rounded-md flex items-center justify-center">
-                            <span class="text-[12px] font-medium text-white">4</span>
-                        </div>
-
-                        <div>
-                            <p class="text-[12px] font-medium">Wireless Headphones</p>
-                            <p class="text-[11px] text-gray-500">1245 sales</p>
-                        </div>
-                    </div>
-
-                    <p class="text-[12px] font-medium">Rp. 12.000.000</p>
-                </div>
+                @endforelse
 
             </div>
         </div>
@@ -175,7 +127,7 @@
 </div>
 @endsection
 
-{{-- <script>
+<script>
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('latestOrders');
     console.log('latestOrders container:', container);
@@ -184,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function statusColor(status) {
         switch (status) {
-            case 'terkirim': return 'text-green-600';
+            case 'dikirim': return 'text-green-600';
             case 'dikirim': return 'text-violet-700';
             case 'diproses': return 'text-yellow-500';
             case 'tertunda': return 'text-red-500';
@@ -227,4 +179,4 @@ fetch(latestOrdersUrl, { headers: { 'Accept': 'application/json' } })
     .then(res => res.json())
     .then(data => console.log('Data fetched:', data))
     .catch(err => console.error(err));
-</script> --}}
+</script>

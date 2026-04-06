@@ -32,5 +32,76 @@
 
     </div>
     
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
-</html> 
+</html>
+
+<script>
+// Prevent Zooming
+document.addEventListener('wheel', function(e) {
+    if (e.ctrlKey) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (
+        e.key === '+' || 
+        e.key === '-' || 
+        e.key === '=' || 
+        e.key === '_' 
+    )) {
+        e.preventDefault();
+    }
+
+    if (e.ctrlKey && (
+        e.keyCode === 187 ||
+        e.keyCode === 189 ||
+        e.keyCode === 107 ||
+        e.keyCode === 109
+    )) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+});
+
+// Flash SweetAlert2
+document.addEventListener('DOMContentLoaded', function() {
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            timer: 3000,
+            showConfirmButton: false,
+            timerProgressBar: true,
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: "{{ session('error') }}",
+            timer: 4000,
+            showConfirmButton: true,
+            confirmButtonColor: '#7c3aed',
+        });
+    @endif
+
+    @if($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: 'Terjadi Kesalahan!',
+            text: "{{ $errors->first() }}",
+            timer: 4000,
+            showConfirmButton: true,
+            confirmButtonColor: '#7c3aed',
+        });
+    @endif
+});
+</script>

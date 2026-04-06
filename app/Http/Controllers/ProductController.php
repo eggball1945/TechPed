@@ -120,7 +120,7 @@ class ProductController extends Controller
         Product::create($validated);
 
         $role = $this->userRole();
-        return redirect()->route("{$role}.products.index")->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route("{$role}.product.index")->with('success', 'Produk berhasil ditambahkan');
     }
 
     public function edit(Product $product)
@@ -160,7 +160,7 @@ class ProductController extends Controller
         $product->update($validated);
 
         $role = $this->userRole();
-        return redirect()->route("{$role}.products.index")->with('success', 'Produk berhasil diperbarui');
+        return redirect()->route("{$role}.product.index")->with('success', 'Produk berhasil diperbarui');
     }
 
     public function destroy($id)

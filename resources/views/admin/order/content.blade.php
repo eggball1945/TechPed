@@ -4,7 +4,8 @@
         <a href="{{ route('admin.order.index', ['status' => 'tertunda']) }}" class="sort-btn px-3 py-2 rounded-full flex items-center gap-3 {{ request('status') === 'tertunda' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Tertunda</a>
         <a href="{{ route('admin.order.index', ['status' => 'diproses']) }}" class="sort-btn px-3 py-2 rounded-full flex items-center gap-3 {{ request('status') === 'diproses' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Diproses</a>
         <a href="{{ route('admin.order.index', ['status' => 'dikirim']) }}" class="sort-btn px-3 py-2 rounded-full flex items-center gap-3 {{ request('status') === 'dikirim' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Dikirim</a>
-        <a href="{{ route('admin.order.index', ['status' => 'terkirim']) }}" class="sort-btn px-3 py-2 rounded-full flex items-center gap-3 {{ request('status') === 'terkirim' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Terkirim</a>
+        <a href="{{ route('admin.order.index', ['status' => 'selesai']) }}" class="sort-btn px-3 py-2 rounded-full flex items-center gap-3 {{ request('status') === 'selesai' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Selesai</a>
+        <a href="{{ route('admin.order.index', ['status' => 'dibatalkan']) }}" class="sort-btn px-3 py-2 rounded-full flex items-center gap-3 {{ request('status') === 'dibatalkan' ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">Dibatalkan</a>
     </div>
 
     <form id="statusForm" method="GET">
@@ -23,22 +24,21 @@
             <button id="filterButton" class="h-6 px-2 border border-gray-100 rounded text-[10px] flex items-center justify-between w-32 bg-white">
                 {{ request('filter') ? ucfirst(str_replace('_',' ',request('filter'))) : 'Urut Berdasarkan' }}
                 <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 9l-7 7-7-7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
 
             <ul id="filterMenu" class="absolute hidden w-full bg-white rounded shadow-md mt-1 z-50">
-                <li data-value="order_id_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Order ID (Kecil → Besar)</li>
-                <li data-value="order_id_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Order ID (Besar → Kecil)</li>
-                <li data-value="pelanggan_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Pelanggan (A – Z)</li>
-                <li data-value="pelanggan_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Pelanggan (Z – A)</li>
-                <li data-value="tanggal_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Tanggal (Terlama → Terbaru)</li>
-                <li data-value="tanggal_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Tanggal (Terbaru → Terlama)</li>
-                <li data-value="jumlah_barang_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Jumlah Barang (Sedikit → Banyak)</li>
-                <li data-value="jumlah_barang_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Jumlah Barang (Banyak → Sedikit)</li>
-                <li data-value="total_harga_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Total Harga (Murah → Mahal)</li>
-                <li data-value="total_harga_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer rounded-b-md">Total Harga (Mahal → Murah)</li>
+                <li data-value="order_id_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Order ID Terkecil</li>
+                <li data-value="order_id_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Order ID Terbesar</li>
+                <li data-value="pelanggan_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Pelanggan A - Z</li>
+                <li data-value="pelanggan_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Pelanggan Z - A</li>
+                <li data-value="tanggal_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Tanggal Terlama</li>
+                <li data-value="tanggal_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Tanggal Terbaru</li>
+                <li data-value="jumlah_barang_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Jumlah Barang Sedikit</li>
+                <li data-value="jumlah_barang_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Jumlah Barang Banyak</li>
+                <li data-value="total_harga_asc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer">Total Harga Sedikit</li>
+                <li data-value="total_harga_desc" class="px-2 py-1 text-[8px] hover:bg-violet-700 hover:text-white cursor-pointer rounded-b-md">Total Harga Banyak</li>
             </ul>
         </div>
 
@@ -92,21 +92,18 @@
                                     Rp {{ number_format($order->total_harga, 0, ',', '.') }}
                                 </span>
             
-                                <span class="px-2 py-1 rounded-md text-[8px] font-medium w-[45px] h-[20px] flex items-center justify-center
-                                    @if($order->status === 'terkirim')
-                                        bg-green-100 text-green-700
-                                    @elseif($order->status === 'dikirim')
-                                        bg-blue-100 text-blue-700
-                                    @elseif($order->status === 'diproses')
-                                        bg-yellow-100 text-yellow-700
-                                    @else
-                                        bg-red-100 text-red-700
-                                    @endif">
-                                    {{ ucfirst($order->status) }}
-                                </span>
+                                @if($order->status === 'selesai')
+                                    <span class="px-1.5 py-0.5 bg-green-100 text-green-700 rounded text-[9px] font-medium w-fit whitespace-nowrap">Selesai</span>
+                                @elseif($order->status === 'dikirim')
+                                    <span class="px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded text-[9px] font-medium w-fit whitespace-nowrap">Dikirim</span>
+                                @elseif($order->status === 'diproses')
+                                    <span class="px-1.5 py-0.5 bg-yellow-100 text-yellow-700 rounded text-[9px] font-medium w-fit whitespace-nowrap">Diproses</span>
+                                @else
+                                    <span class="px-1.5 py-0.5 bg-red-100 text-red-700 rounded text-[9px] font-medium w-fit whitespace-nowrap">{{ ucfirst($order->status) }}</span>
+                                @endif
 
                                 <div class="flex justify-end items-start gap-6 text-violet-700">
-                                    <button type="button" class="btnShowOrder w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150" data-order='@json($order->load("user","products"))'>
+                                    <button type="button" class="btnShowOrder w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150" data-order='@json($order->load(["user.addresses","products"]))'>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M7.5 9.375C8.53553 9.375 9.375 8.53553 9.375 7.5C9.375 6.46447 8.53553 5.625 7.5 5.625C6.46447 5.625 5.625 6.46447 5.625 7.5C5.625 8.53553 6.46447 9.375 7.5 9.375Z" fill="#6D28D9"/>
                                             <path d="M14.5029 7.34062C13.9516 5.91452 12.9945 4.68123 11.7499 3.79317C10.5052 2.9051 9.02768 2.40121 7.4998 2.34375C5.97192 2.40121 4.49436 2.9051 3.24974 3.79317C2.00512 4.68123 1.048 5.91452 0.496676 7.34062C0.459441 7.44361 0.459441 7.55639 0.496676 7.65938C1.048 9.08548 2.00512 10.3188 3.24974 11.2068C4.49436 12.0949 5.97192 12.5988 7.4998 12.6562C9.02768 12.5988 10.5052 12.0949 11.7499 11.2068C12.9945 10.3188 13.9516 9.08548 14.5029 7.65938C14.5402 7.55639 14.5402 7.44361 14.5029 7.34062ZM7.4998 10.5469C6.89719 10.5469 6.3081 10.3682 5.80705 10.0334C5.30599 9.69859 4.91547 9.22273 4.68486 8.66599C4.45424 8.10924 4.39391 7.49662 4.51147 6.90558C4.62903 6.31455 4.91922 5.77165 5.34533 5.34553C5.77145 4.91942 6.31435 4.62923 6.90538 4.51167C7.49642 4.39411 8.10905 4.45444 8.66579 4.68505C9.22253 4.91567 9.69839 5.30619 10.0332 5.80725C10.368 6.3083 10.5467 6.89739 10.5467 7.5C10.5454 8.3077 10.224 9.08197 9.6529 9.6531C9.08177 10.2242 8.3075 10.5456 7.4998 10.5469Z" fill="#6D28D9"/>
@@ -115,9 +112,18 @@
 
                                     <form action="{{ route('admin.order.send', $order->id) }}" method="POST">
                                         @csrf
-                                        <button title="Kirim ke petugas" class=" w-[24px] h-[24px] flex items-center justify-center rounded transition-colors duration-150 {{ $order->status !== 'diproses' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-slate-200' }}" {{ $order->status !== 'diproses' ? 'disabled' : '' }}>
+                                        <button title="Kirim Pesanan" class=" w-[24px] h-[24px] flex items-center justify-center rounded transition-colors duration-150 {{ $order->status !== 'diproses' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-slate-200' }}" {{ $order->status !== 'diproses' ? 'disabled' : '' }}>
                                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M1.5 3.75C1.5 2.92266 2.17266 2.25 3 2.25H9.75C10.5773 2.25 11.25 2.92266 11.25 3.75V4.5H12.4383C12.8367 4.5 13.2188 4.65703 13.5 4.93828L14.5617 6C14.843 6.28125 15 6.66328 15 7.06172V10.5C15 11.3273 14.3273 12 13.5 12H13.4227C13.1789 12.8648 12.382 13.5 11.4375 13.5C10.493 13.5 9.69844 12.8648 9.45234 12H7.04766C6.80391 12.8648 6.00703 13.5 5.0625 13.5C4.11797 13.5 3.32344 12.8648 3.07734 12H3C2.17266 12 1.5 11.3273 1.5 10.5V9.375H0.5625C0.250781 9.375 0 9.12422 0 8.8125C0 8.50078 0.250781 8.25 0.5625 8.25H3.1875C3.49922 8.25 3.75 7.99922 3.75 7.6875C3.75 7.37578 3.49922 7.125 3.1875 7.125H0.5625C0.250781 7.125 0 6.87422 0 6.5625C0 6.25078 0.250781 6 0.5625 6H4.6875C4.99922 6 5.25 5.74922 5.25 5.4375C5.25 5.12578 4.99922 4.875 4.6875 4.875H0.5625C0.250781 4.875 0 4.62422 0 4.3125C0 4.00078 0.250781 3.75 0.5625 3.75H1.5ZM13.5 8.25V7.06172L12.4383 6H11.25V8.25H13.5ZM6 11.4375C6 10.9195 5.58047 10.5 5.0625 10.5C4.54453 10.5 4.125 10.9195 4.125 11.4375C4.125 11.9555 4.54453 12.375 5.0625 12.375C5.58047 12.375 6 11.9555 6 11.4375ZM11.4375 12.375C11.9555 12.375 12.375 11.9555 12.375 11.4375C12.375 10.9195 11.9555 10.5 11.4375 10.5C10.9195 10.5 10.5 10.9195 10.5 11.4375C10.5 11.9555 10.9195 12.375 11.4375 12.375Z" fill="#6D28D9"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('admin.order.complete', $order->id) }}" method="POST">
+                                        @csrf
+                                        <button title="Selesaikan Pesanan" class=" w-[24px] h-[24px] flex items-center justify-center rounded transition-colors duration-150 {{ $order->status !== 'dikirim' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-slate-200' }}" {{ $order->status !== 'dikirim' ? 'disabled' : '' }}>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 13L9 17L19 7" stroke="#6D28D9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                         </button>
                                     </form>
@@ -153,26 +159,26 @@
 
         <div class="flex gap-1">
             @if ($orders->onFirstPage())
-                <span class="px-3 py-1 border rounded text-slate-400 cursor-pointer">Sebelumnya</span>
+                <span class="px-3 py-1 border rounded text-slate-400 cursor-not-allowed">Sebelumnya</span>
             @else
-                <a href="{{ $orders->previousPageUrl() }}" class="px-3 py-1 border cursor-pointer rounded hover:bg-slate-100 cursor-pointer">
-                    Selanjutnya
+                <a href="{{ $orders->previousPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
+                    Sebelumnya
                 </a>
             @endif
 
             @if ($orders->hasMorePages())
-                <a href="{{ $orders->nextPageUrl() }}" class="px-3 py-1 border cursor-pointer rounded hover:bg-slate-100 cursor-pointer">
-                    Sebelumnya
+                <a href="{{ $orders->nextPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
+                    Selanjutnya
                 </a>
             @else
-                <span class="px-3 py-1 border rounded text-slate-400 cursor-pointer">Selanjutnya</span>
+                <span class="px-3 py-1 border rounded text-slate-400 cursor-not-allowed">Selanjutnya</span>
             @endif
         </div>
     </div>
 </div>
 
-<div id="cardDetailOrder" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 overflow-none">
-    <div class="w-[392px] h-[566px] bg-white rounded-lg shadow-lg p-4 overflow-y-auto relative">
+<div id="cardDetailOrder" class="hidden fixed inset-0 bg-black/40 items-center justify-center z-50">
+    <div class="w-[392px] max-h-[90vh] bg-white rounded-lg shadow-lg p-4 overflow-y-auto overflow-x-hidden relative">
 
         <div class="flex justify-between items-center w-full">
             <span class="font-medium text-[15px] leading-[24px] text-black">
@@ -198,47 +204,65 @@
             <div class="w-[127px] flex flex-col gap-0">
                 <span class="font-medium text-[10px] leading-[24px] text-start text-black/50">Tanggal Order</span>
                 <span id="order_tanggal" class="font-medium text-[13px] leading-[24px] text-start text-black"></span>
-                <span id="order_status_badge" class="px-2 py-1 rounded-md text-[8px] font-medium w-[45px] h-[20px] flex items-center justify-center"></span>
-            </div>
-        </div>
-
-        <div class="flex flex-col justify-between mt-3">
-            <span class="font-medium text-[12px] leading-[24px] text-left text-black block mb-4">
-                Informasi Pengiriman
-            </span>
-
-            <div class="w-[360px] h-[60px] bg-slate-50 mx-auto p-2 rounded mb-2 overflow-y-auto flex flex-col gap-1">
-                <span id="order_ekspedisi" class="font-medium text-[8px] text-black block"></span>
-                <span id="order_alamat" class="font-medium text-[8px] text-black block"></span>
-                <span id="order_tracking" class="font-medium text-[8px] text-black block"></span>
+                <span id="order_status_badge" class="px-2 py-1 rounded-md text-[8px] font-medium min-w-[45px] h-[20px] flex items-center justify-center"></span>
             </div>
         </div>
 
         <div class="flex flex-col justify-between mt-3">
             <span class="font-medium text-[12px] leading-[24px] text-left text-black block mb-2">
+                Informasi Pengiriman
+            </span>
+
+            <div class="w-full min-h-[80px] max-h-[120px] bg-slate-50 p-3 rounded mb-2 overflow-y-auto flex flex-col gap-1 border border-slate-100">
+                <div class="flex flex-col gap-0.5">
+                    <span class="text-[9px] text-black/40 font-medium uppercase tracking-wider">Ekspedisi</span>
+                    <span id="order_ekspedisi" class="font-semibold text-[10px] text-black block"></span>
+                </div>
+                <div class="flex flex-col gap-0.5 mt-1">
+                    <span class="text-[9px] text-black/40 font-medium uppercase tracking-wider">Alamat</span>
+                    <span id="order_alamat" class="font-medium text-[10px] text-black block leading-relaxed"></span>
+                </div>
+                <div class="flex flex-col gap-0.5 mt-1">
+                    <span class="text-[9px] text-black/40 font-medium uppercase tracking-wider">Nomor Resi</span>
+                    <span id="order_tracking" class="font-semibold text-[10px] text-violet-700 block"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="order_proof_container" class="hidden flex flex-col justify-between mt-3">
+            <span class="font-medium text-[12px] leading-[24px] text-left text-black block mb-2">
+                Bukti Pembayaran
+            </span>
+            <div class="w-full h-[150px] bg-slate-50 border border-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+                <img id="order_proof_img" src="" class="max-h-full max-w-full object-contain cursor-zoom-in hover:scale-105 transition-transform duration-300" onclick="if(typeof Swal !== 'undefined') { Swal.fire({imageUrl: this.src, imageAlt: 'Bukti Pembayaran', width: 'auto', padding: '1em', customClass: {image: 'max-h-[80vh] object-contain w-auto rounded-lg', closeButton: '!text-violet-700 hover:!text-violet-800 transition-colors'}, showConfirmButton: false, showCloseButton: true, backdrop: 'rgba(0,0,20,0.8)'}); } else { window.open(this.src); }" title="Klik untuk memperbesar">
+            </div>
+        </div>
+
+        <div class="flex flex-col justify-between mt-4">
+            <span class="font-medium text-[12px] leading-[24px] text-left text-black block mb-2">
                 Barang diorder
             </span>
 
-            <div id="order_products" class="w-[360px] h-[60px] mx-auto mb-2 p-2 border border-gray-200 rounded flex flex-col gap-1 text-[8px]">
+            <div id="order_products" class="w-full min-h-[100px] max-h-[180px] mb-2 p-2 border border-gray-100 rounded-lg flex flex-col gap-1 overflow-y-auto">
                 
             </div>
         </div>
 
-        <div class="w-[360px] mx-auto flex flex-col gap-1 mb-2 text-[12px] font-medium">
-        <div class="flex justify-between"><span>Subtotal</span><span id="order_subtotal"></span></div>
-        <div class="flex justify-between"><span>Pengiriman</span><span id="order_ongkir"></span></div>
-        <div class="flex justify-between"><span>Pajak</span><span id="order_tax"></span></div>
-        <div class="flex justify-between"><span>Diskon</span><span id="order_discount"></span></div>
-        <div class="flex justify-between"><span>Total</span><span id="order_total"></span></div>
+        <div class="w-full flex flex-col gap-2 mb-2 text-[12px] font-medium mt-4 bg-slate-50/50 p-3 rounded-xl border border-slate-100">
+            <div class="flex justify-between text-black/60 text-[11px]"><span>Subtotal</span><span id="order_subtotal" class="text-black font-semibold"></span></div>
+            <div class="flex justify-between text-black/60 text-[11px]"><span>Biaya Pengiriman</span><span id="order_ongkir" class="text-black font-semibold"></span></div>
+            <div class="flex justify-between text-black/60 text-[11px]"><span>Pajak (PPN {{ \App\Models\SystemSetting::get('tax_percentage', 11) }}%)</span><span id="order_tax" class="text-black font-semibold"></span></div>
+            <div class="flex justify-between text-red-500/80 text-[11px]"><span>Diskon</span><span id="order_discount" class="font-semibold"></span></div>
+            <div class="w-full h-px my-1 bg-gray-200"></div>
+            <div class="flex justify-between text-[14px] text-black"><span>Total Pembayaran</span><span id="order_total" class="text-violet-700 font-bold"></span></div>
         </div>
 
         <div class="w-[360px] mt-8">
-            <button class="w-full h-[40px] bg-violet-700 rounded-full flex items-center justify-center">
+            <button id="btnMasukkanStruk" class="w-full h-[40px] bg-violet-700 rounded-full flex items-center justify-center transition">
                 <span class="font-medium text-[15px] leading-[18px] text-white">
                     Masukkan struk
                 </span>
             </button>
         </div>
-
     </div>
 </div>

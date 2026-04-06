@@ -33,7 +33,7 @@ class AuthController extends Controller
             'password' => $credentials['password']
         ])) {
             $request->session()->regenerate();
-            return redirect()->intended('/landing');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
@@ -48,7 +48,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/landing');
+        return redirect('/');
     }
 
     public function showRegister()
@@ -76,6 +76,63 @@ class AuthController extends Controller
 
         Auth::guard('web')->login($user);
 
-        return redirect('/landing');
+        return redirect('/');
+    }
+
+    // FORGOT PASSWORD FLOW
+    public function showForgotPassword()
+    {
+        return view('user.auth.forgot-password');
+    }
+
+    // SIMPLIFIED RESET FLOW (No Code)
+    public function sendResetCode(Request $request)
+    {
+        $request->validate([
+            'email_or_phone' => 'required|string',
+        ]);
+
+        $loginType = filter_var($request->email_or_phone, FILTER_VALIDATE_EMAIL) ? 'email' : 'no_telepon';
+        $user = User::where($loginType, $request->email_or_phone)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email_or_phone' => 'Akun tidak ditemukan!']);
+        }
+
+        // Store user ID in session for identification, but skip the code logic
+        session([
+            'reset_user_id' => $user->id,
+            'is_reset_authorized' => true
+        ]);
+
+        return redirect()->route('user.password.reset')->with('success', 'Akun ditemukan! Silakan atur sandi baru Anda.');
+    }
+
+    public function showResetPassword()
+    {
+        if (!session('is_reset_authorized')) {
+            return redirect()->route('user.password.request');
+        }
+        return view('user.auth.reset-password');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        $user = User::find(session('reset_user_id'));
+        if (!$user || !session('is_reset_authorized')) {
+            return redirect()->route('user.password.request')->withErrors(['email_or_phone' => 'Gagal mereset password, silahkan coba lagi.']);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Clear session
+        session()->forget(['reset_user_id', 'is_reset_authorized']);
+
+        return redirect()->route('user.login')->with('success', 'Password berhasil diubah! Silahkan login.');
     }
 }
