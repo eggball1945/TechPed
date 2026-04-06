@@ -129,7 +129,7 @@
                                         </button>
                                     </form>
 
-                                    <form action="{{ route('petugas.order.destroy', $order->id) }}" method="POST" onsubmit="return confirm('Hapus order ini?')">
+                                    <form action="{{ route('petugas.order.destroy', $order->id) }}" method="POST" onsubmit="confirmAction(event, 'Hapus order ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button title="Hapus" class="w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150">
@@ -282,7 +282,7 @@
                     openDetailOrderModal(order);
                 } catch (error) {
                     console.error('Error parsing order:', error);
-                    alert('Gagal memuat data order: ' + error.message);
+                    alertAction('Gagal memuat data order: ' + error.message);
                 }
             });
         });

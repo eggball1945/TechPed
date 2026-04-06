@@ -53,7 +53,7 @@
             </div>
 
             <div class="flex justify-end gap-3 mt-4">
-                <form action="{{ route('petugas.contact.destroy', $message->id) }}" method="POST" onsubmit="return confirm('Hapus pesan ini permanent?')">
+                <form action="{{ route('petugas.contact.destroy', $message->id) }}" method="POST" onsubmit="confirmAction(event, 'Hapus pesan ini permanent?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="h-8 px-4 bg-red-50 hover:bg-red-100 text-red-600 rounded flex items-center gap-2 text-[11px] font-semibold transition cursor-pointer">

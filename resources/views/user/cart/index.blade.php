@@ -129,7 +129,7 @@
                 </div>
                 <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">Keranjang Anda <span class="text-violet-700">Kosong</span></h3>
                 <p class="text-gray-500 max-w-sm mx-auto mb-12 leading-relaxed font-medium">Temukan koleksi teknologi terbaru kami dan penuhi kebutuhan digital Anda sekarang juga.</p>
-                <a href="{{ route('user.products') }}" class="inline-flex items-center gap-3 bg-gradient-to-r from-violet-700 to-fuchsia-600 hover:shadow-2xl hover:shadow-violet-200 text-white font-black px-12 py-5 rounded-[2rem] transition-all active:scale-[0.98] group shadow-xl shadow-violet-100">
+                <a href="{{ route('user.products') }}" class="inline-flex items-center gap-3 bg-violet-700 hover:shadow-2xl hover:shadow-violet-200 text-white font-black px-12 py-5 rounded-[2rem] transition-all active:scale-[0.98] group shadow-xl shadow-violet-100">
                     <span class="uppercase tracking-widest text-xs">Mulai Jelajah Produk</span>
                     <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </a>
@@ -213,9 +213,9 @@
                 }
             });
 
-            subtotalSpan.textContent = 'Rp ' + subtotal.toLocaleString('id');
-            totalSpan.textContent = 'Rp ' + subtotal.toLocaleString('id');
-            checkoutBtn.dataset.selected = selectedIds.join(',');
+            if (subtotalSpan) subtotalSpan.textContent = 'Rp ' + subtotal.toLocaleString('id');
+            if (totalSpan) totalSpan.textContent = 'Rp ' + subtotal.toLocaleString('id');
+            if (checkoutBtn) checkoutBtn.dataset.selected = selectedIds.join(',');
 
             if (selectAllCheckbox) {
                 const customCheckbox = selectAllCheckbox.nextElementSibling;
@@ -284,14 +284,16 @@
 
         updateSummary();
 
-        checkoutBtn.addEventListener('click', function() {
-            const selected = this.dataset.selected;
-            if (!selected) {
-                alert('Pilih item yang ingin Anda checkout.');
-                return;
-            }
-            window.location.href = '{{ route("checkout") }}?cart_ids=' + encodeURIComponent(selected);
-        });
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function() {
+                const selected = this.dataset.selected;
+                if (!selected) {
+                    alert('Pilih item yang ingin Anda checkout.');
+                    return;
+                }
+                window.location.href = '{{ route("checkout") }}?cart_ids=' + encodeURIComponent(selected);
+            });
+        }
     });
 </script>
 

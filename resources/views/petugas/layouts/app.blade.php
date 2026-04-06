@@ -34,6 +34,33 @@
     
     {{-- SweetAlert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- Simple Confirm Modal --}}
+    <div id="simple-confirm-modal" class="hidden fixed inset-0 bg-black/40 z-[9999] items-center justify-center font-[Poppins]">
+        <div class="bg-white border border-gray-300 w-[320px] rounded-sm p-5 shadow-sm">
+            <h3 class="text-[13px] text-gray-800 font-medium mb-4 leading-relaxed" id="simple-confirm-msg">Apakah Anda yakin?</h3>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" onclick="closeSimpleConfirm()" class="px-4 py-1.5 text-[11px] text-gray-600 bg-gray-100 hover:bg-gray-200 border border-gray-300 cursor-pointer uppercase font-semibold">
+                    Batal
+                </button>
+                <button type="button" id="simple-confirm-ok" class="px-4 py-1.5 text-[11px] text-white bg-violet-700 hover:bg-violet-800 border-none cursor-pointer uppercase font-semibold">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {{-- Simple Alert Modal --}}
+    <div id="simple-alert-modal" class="hidden fixed inset-0 bg-black/40 z-[9999] items-center justify-center font-[Poppins]">
+        <div class="bg-white border border-gray-300 w-[320px] rounded-sm p-5 shadow-sm">
+            <h3 class="text-[13px] text-gray-800 font-medium mb-4 leading-relaxed" id="simple-alert-msg">Peringatan</h3>
+            <div class="flex justify-end mt-4">
+                <button type="button" onclick="closeSimpleAlert()" class="px-4 py-1.5 text-[11px] text-white bg-violet-700 hover:bg-violet-800 border-none cursor-pointer uppercase font-semibold">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
@@ -44,6 +71,47 @@ document.addEventListener('wheel', function(e) {
         e.preventDefault();
     }
 }, { passive: false });
+
+// Simple Confirm Logic
+let confirmFormToSubmit = null;
+window.confirmAction = function(event, message) {
+    event.preventDefault();
+    confirmFormToSubmit = event.target;
+    document.getElementById('simple-confirm-msg').innerText = message;
+    
+    let modal = document.getElementById('simple-confirm-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+window.closeSimpleConfirm = function() {
+    let modal = document.getElementById('simple-confirm-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    confirmFormToSubmit = null;
+}
+
+document.getElementById('simple-confirm-ok').addEventListener('click', function() {
+    if (confirmFormToSubmit) {
+        confirmFormToSubmit.onsubmit = null;
+        confirmFormToSubmit.submit();
+    }
+    closeSimpleConfirm();
+});
+
+// Simple Alert Logic
+window.alertAction = function(message) {
+    document.getElementById('simple-alert-msg').innerText = message;
+    let modal = document.getElementById('simple-alert-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+window.closeSimpleAlert = function() {
+    let modal = document.getElementById('simple-alert-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
 
 document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && (

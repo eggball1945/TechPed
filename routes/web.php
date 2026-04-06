@@ -136,6 +136,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/laporan/pdf', [LaporanController::class, 'exportPdf'])->name('laporan.pdf');
         Route::get('/laporan/excel', [LaporanController::class, 'exportExcel'])->name('laporan.excel');
         Route::get('/admin/reviews', [ReviewController::class, 'index']);
+        Route::delete('/admin/reviews/destroy-all', [ReviewController::class, 'destroyAll'])->name('review.destroyAll');
         Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 
         // STRUK
@@ -199,6 +200,7 @@ Route::prefix('petugas')->name('petugas.')->group(function () {
         Route::get('/laporan/pdf', [LaporanController::class, 'exportPdf'])->name('laporan.pdf');
         Route::get('/laporan/excel', [LaporanController::class, 'exportExcel'])->name('laporan.excel');
         Route::get('/reviews', [ReviewController::class, 'index'])->name('review.index');
+        Route::delete('/reviews/destroy-all', [ReviewController::class, 'destroyAll'])->name('review.destroyAll');
         Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
         // STRUK
         Route::get('/struk', [StrukController::class, 'index'])->name('struk.index');

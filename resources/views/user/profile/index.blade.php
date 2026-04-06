@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-4xl mx-auto">
     <div class="mb-10 animate-fade-in">
-        <h1 class="text-4xl font-black text-gray-900 tracking-tight mb-2 uppercase italic">Pengaturan <span class="text-violet-700">Profil</span></h1>
+        <h1 class="text-4xl font-black text-gray-900 tracking-tight mb-2">Pengaturan <span class="text-violet-700">Profil</span></h1>
         <p class="text-sm text-gray-500 font-medium">Kelola informasi data diri dan keamanan akun Anda</p>
     </div>
 

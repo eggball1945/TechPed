@@ -81,10 +81,15 @@
     }
 
     function updateSubtotal() {
-        let qty = parseInt(document.getElementById('qty').value);
+        let qtyInput = document.getElementById('qty');
+        if (!qtyInput) return;
+        let qty = parseInt(qtyInput.value);
         let price = {{ $product->harga_diskon ?? $product->harga }};
         let subtotal = price * qty;
-        document.getElementById('subtotal-display').innerHTML = 'Rp ' + subtotal.toLocaleString('id');
+        let subtotalDisplay = document.getElementById('subtotal-display');
+        if (subtotalDisplay) {
+            subtotalDisplay.innerHTML = 'Rp ' + subtotal.toLocaleString('id');
+        }
     }
 
     function incrementQty() {

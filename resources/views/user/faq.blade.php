@@ -21,7 +21,7 @@
                 Pusat Bantuan TechPed
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 tracking-tight animate-slide-up">
-                Frequently Asked <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-fuchsia-600">Questions</span>
+                Frequently Asked <span class="text-transparent bg-clip-text bg-violet-700">Questions</span>
             </h1>
             <p class="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed animate-slide-up" style="animation-delay: 0.1s;">
                 Temukan jawaban cepat untuk pertanyaan yang sering diajukan mengenai layanan kami.

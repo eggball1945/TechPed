@@ -113,7 +113,7 @@
                                         <path d="M10 3.12501L11.875 5.00001M12.7406 4.11563C12.9868 3.86948 13.1251 3.53562 13.1251 3.18751C13.1251 2.83939 12.9868 2.50553 12.7406 2.25938C12.4945 2.01323 12.1606 1.87494 11.8125 1.87494C11.4644 1.87494 11.1305 2.01323 10.8844 2.25938L5.625 7.50001V9.37501H7.5L12.7406 4.11563Z" stroke="#6D28D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </button>
-                                <form action="{{ route('petugas.product.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Hapus order ini?')">
+                                <form action="{{ route('petugas.product.destroy', $product->id) }}" method="POST" onsubmit="confirmAction(event, 'Hapus produk ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150">

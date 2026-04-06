@@ -69,21 +69,40 @@
             </div>
         @endif
 
-        @if($orders->isEmpty())
-            <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 p-16 text-center animate-fade-in-up border border-gray-50">
-                <div class="w-24 h-24 bg-violet-50 rounded-full flex items-center justify-center mx-auto mb-8 border border-violet-100">
-                    <svg class="w-12 h-12 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
+        @if(session('error'))
+            <div class="mb-8 bg-white border border-rose-100 p-6 rounded-[2rem] shadow-xl shadow-rose-100/20 flex items-center gap-5 animate-fade-in-down">
+                <div class="bg-linear-to-br from-rose-500 to-red-600 p-3 rounded-2xl shadow-lg shadow-rose-200">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </div>
-                <h3 class="text-2xl font-black text-gray-900 mb-4">
-                    {{ request('status') ? 'Belum Ada Pesanan ' . ucfirst(request('status')) : 'Belum Ada Pesanan' }}
+                <div class="flex-1">
+                    <h4 class="font-black text-rose-900 text-base">Gagal!</h4>
+                    <p class="text-sm text-rose-700/70 font-medium mt-0.5">{{ session('error') }}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="bg-gray-50 p-2 rounded-xl text-gray-400 hover:text-red-500 transition-all hover:rotate-90">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        @endif
+
+        @if($orders->isEmpty())
+            <div class="bg-white rounded-[3rem] shadow-2xl shadow-gray-200/50 p-20 text-center animate-fade-in-up border border-gray-50 flex flex-col items-center">
+                <div class="relative w-48 h-48 mb-10">
+                    <div class="absolute inset-0 bg-violet-100 rounded-full animate-pulse opacity-40"></div>
+                    <div class="absolute inset-4 bg-violet-200 rounded-full animate-ping opacity-20" style="animation-duration: 3s"></div>
+                    <div class="relative z-10 w-full h-full flex items-center justify-center">
+                        <svg class="w-24 h-24 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">
+                    Belum Ada <span class="text-violet-700">Pesanan{{ request('status') && request('status') !== 'all' ? ' ' . ucfirst(request('status')) : '' }}</span>
                 </h3>
-                <p class="text-gray-500 max-w-sm mx-auto mb-10 leading-relaxed text-sm">
+                <p class="text-gray-500 max-w-sm mx-auto mb-12 leading-relaxed font-medium">
                     Sepertinya Anda belum memiliki riwayat belanja. Temukan produk teknologi terbaik kami sekarang!
                 </p>
-                <a href="{{ route('user.products') }}" class="inline-flex items-center gap-3 bg-violet-700 hover:shadow-2xl hover:shadow-violet-200 text-white font-black px-10 py-4 rounded-2xl transition-all active:scale-[0.98] group">
-                    <span>Mulai Belanja</span>
+                <a href="{{ route('user.products') }}" class="inline-flex items-center gap-3 bg-violet-700 hover:shadow-2xl hover:shadow-violet-200 text-white font-black px-12 py-5 rounded-[2rem] transition-all active:scale-[0.98] group shadow-xl shadow-violet-100">
+                    <span class="uppercase tracking-widest text-xs">Mulai Belanja</span>
                     <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </a>
             </div>
@@ -134,7 +153,7 @@
                                     @endif
 
                                     @if(in_array($order->status, ['dibatalkan', 'selesai']))
-                                        <button onclick="confirmAction('delete', {{ $order->id }})" class="p-2.5 text-gray-300 hover:text-violet-700 transition-all hover:bg-violet-50 rounded-xl">
+                                        <button onclick="confirmAction('delete', {{ $order->id }})" class="p-2.5 text-gray-300 hover:text-violet-700 transition-all hover:bg-violet-50 rounded-xl cursor-pointer">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                         </button>
                                         <form method="POST" action="{{ route('orders.destroy', $order->id) }}" id="delete-form-{{ $order->id }}" class="hidden">@csrf @method('DELETE')</form>

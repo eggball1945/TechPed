@@ -198,9 +198,9 @@ class OrderController extends Controller
             abort(403);
         }
 
-        // Only allow deletion if status is 'dibatalkan' or 'dikirim'
-        if (!in_array($order->status, ['dibatalkan', 'dikirim'])) {
-            return back()->with('error', 'Pesanan tidak dapat dihapus. Pesanan harus dibatalkan terlebih dahulu.');
+        // Only allow deletion if status is 'dibatalkan' or 'selesai'
+        if (!in_array($order->status, ['dibatalkan', 'selesai'])) {
+            return back()->with('error', 'Pesanan tidak dapat dihapus. Hanya pesanan batal atau selesai yang bisa dihapus.');
         }
 
         $order->delete();

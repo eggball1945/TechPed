@@ -142,7 +142,21 @@
 </div>
 
 <div class="w-[1080px] bg-white rounded-lg border border-gray-300 p-4 mt-8">
-    <h2 class="font-medium text-[12px] mb-4">Ulasan Produk</h2>
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="font-medium text-[12px]">Ulasan Produk</h2>
+        @if($reviews->count() > 0)
+            <form action="{{ route('petugas.review.destroyAll') }}" method="POST" onsubmit="confirmAction(event, 'Apakah Anda yakin ingin menghapus SEMUA ulasan?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="flex items-center gap-2 px-3 py-1.5 bg-violet-50 hover:bg-violet-100 text-violet-600 rounded transition-colors group cursor-pointer">
+                    <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:scale-110 transition-transform">
+                        <path d="M1 3.5H9.75M4.125 5.375V10.375M6.625 5.375V10.375M4.125 1H6.625C6.79076 1 6.94973 1.06585 7.06694 1.18306C7.18415 1.30027 7.25 1.45924 7.25 1.625V3.5H3.5V1.625C3.5 1.45924 3.56585 1.30027 3.68306 1.18306C3.80027 1.06585 3.95924 1 4.125 1ZM1.625 3.5H9.125V11.625C9.125 11.7908 9.05915 11.9497 8.94194 12.0669C8.82473 12.1842 8.66576 12.25 8.5 12.25H2.25C2.08424 12.25 1.92527 12.1842 1.80806 12.0669C1.69085 11.9497 1.625 11.7908 1.625 11.625V3.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-[11px] font-bold uppercase tracking-widest">Hapus Semua</span>
+                </button>
+            </form>
+        @endif
+    </div>
 
     <div class="grid grid-cols-[200px_1fr_100px_100px] text-xs font-medium border-b border-gray-200 pb-2 mb-2 items-center px-2">
         <span>Reviewer</span>
@@ -180,7 +194,7 @@
             </div>
 
             <div class="flex items-center justify-center">
-                <form action="{{ route('petugas.review.destroy', $review->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus ulasan ini?');">
+                <form action="{{ route('petugas.review.destroy', $review->id) }}" method="POST" onsubmit="confirmAction(event, 'Apakah Anda yakin ingin menghapus ulasan ini?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150 group">
@@ -230,7 +244,7 @@
     @endforelse
 
     <div class="mt-4">
-        {{ $reviews->links() }}
+        {{ $reviews->appends(request()->all())->links() }}
     </div>
 
     <div class="flex items-center justify-between mt-6 text-[10px] text-slate-600">
@@ -248,13 +262,13 @@
             @if ($reviews->onFirstPage())
                 <span class="px-3 py-1 border rounded text-slate-400 cursor-not-allowed">Sebelumnya</span>
             @else
-                <a href="{{ $reviews->previousPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
+                <a href="{{ $reviews->appends(request()->all())->previousPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
                     Sebelumnya
                 </a>
             @endif
 
             @if ($reviews->hasMorePages())
-                <a href="{{ $reviews->nextPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
+                <a href="{{ $reviews->appends(request()->all())->nextPageUrl() }}" class="px-3 py-1 border rounded hover:bg-slate-100 cursor-pointer">
                     Selanjutnya
                 </a>
             @else

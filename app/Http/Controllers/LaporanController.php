@@ -34,7 +34,7 @@ class LaporanController extends Controller
 
         $reviews = Review::with(['user', 'product'])
             ->latest()
-            ->paginate(10);
+            ->paginate(10, ['*'], 'reviews_page');
 
         $totalPendapatan = Order::whereIn('status', ['dikirim', 'selesai'])
             ->when($user_id, fn($q) => $q->where('user_id', $user_id))

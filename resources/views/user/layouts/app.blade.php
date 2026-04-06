@@ -72,7 +72,7 @@
                                             $isActive = (Route::currentRouteName() === $item['route']);
                                         @endphp
                                         <a href="{{ route($item['route']) }}" 
-                                           class="flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group/nav
+                                           class="flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group/nav active:scale-[0.98]
                                            {{ $isActive 
                                               ? 'bg-violet-700 text-white shadow-lg shadow-violet-200 active-nav' 
                                               : 'text-gray-500 hover:bg-violet-50 hover:text-violet-700' }}">
@@ -84,7 +84,7 @@
                                                 </svg>
                                             </div>
                                             
-                                            <span class="text-xs font-black uppercase tracking-widest">{{ $item['label'] }}</span>
+                                            <span class="text-xs font-bold truncate">{{ $item['label'] }}</span>
                                         </a>
                                     @endforeach
 
@@ -93,7 +93,7 @@
                                     <form method="POST" action="{{ route('user.logout') }}">
                                         @csrf
                                         <button type="submit" 
-                                                class="flex items-center gap-4 w-full px-5 py-4 rounded-2xl text-violet-500 hover:bg-violet-50 transition-all duration-300 group/nav cursor-pointer">
+                                                class="flex items-center gap-4 w-full px-5 py-4 rounded-2xl text-violet-500 hover:bg-violet-50 transition-all duration-300 group/nav cursor-pointer active:scale-[0.98]">
                                             
                                             <div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-400 group-hover/nav:bg-violet-100 group-hover/nav:text-violet-700 transition-all duration-500 group-hover/nav:-rotate-6 flex items-center justify-center">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,7 +101,7 @@
                                                 </svg>
                                             </div>
 
-                                            <span class="text-xs font-black uppercase tracking-widest">Keluar Akun</span>
+                                            <span class="text-xs font-bold truncate">Keluar Akun</span>
                                         </button>
                                     </form>
                                 </div>

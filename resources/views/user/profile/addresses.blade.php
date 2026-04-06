@@ -6,7 +6,7 @@
 <div class="max-w-4xl mx-auto">
     <div class="mb-10 animate-fade-in flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-            <h1 class="text-4xl font-black text-gray-900 tracking-tight mb-2 uppercase italic">Daftar <span class="text-violet-700">Alamat</span></h1>
+            <h1 class="text-4xl font-black text-gray-900 tracking-tight mb-2">Daftar <span class="text-violet-700">Alamat</span></h1>
             <p class="text-sm text-gray-500 font-medium">Kelola alamat pengiriman untuk kemudahan checkout</p>
         </div>
         <button onclick="scrollToAddAddress()" class="bg-violet-700 hover:shadow-2xl hover:shadow-violet-200 text-white font-black px-6 py-3.5 rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-violet-100 uppercase text-[10px] tracking-widest cursor-pointer group">

@@ -237,7 +237,7 @@
                     openDetailOrderModal(order);
                 } catch (error) {
                     console.error('Error parsing order:', error);
-                    alert('Gagal memuat data order: ' + error.message);
+                    alertAction('Gagal memuat data order: ' + error.message);
                 }
             });
         });
@@ -263,7 +263,7 @@
                     fillStrukForm(window.lastOrder);
                     closeDetailOrderModal();
                 } else {
-                    alert('Tidak ada order yang dipilih. Silakan buka detail order terlebih dahulu.');
+                    alertAction('Tidak ada order yang dipilih. Silakan buka detail order terlebih dahulu.');
                 }
             });
         }
@@ -274,7 +274,7 @@
             cetakBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (!window.lastOrder) {
-                    alert('Tidak ada order yang dipilih. Silakan isi form dengan memilih order terlebih dahulu.');
+                    alertAction('Tidak ada order yang dipilih. Silakan isi form dengan memilih order terlebih dahulu.');
                     return;
                 }
 
@@ -308,12 +308,12 @@
                         // Refresh page to clear list
                         window.location.reload();
                     } else {
-                        alert('Gagal mengubah status: ' + (data.message || 'Unknown error'));
+                        alertAction('Gagal mengubah status: ' + (data.message || 'Unknown error'));
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Terjadi kesalahan saat mengirim data');
+                    alertAction('Terjadi kesalahan saat mengirim data');
                 })
                 .finally(() => {
                     cetakBtn.disabled = false;

@@ -128,7 +128,7 @@
                                         </button>
                                     </form>
 
-                                    <form action="{{ route('admin.order.destroy', $order->id) }}" method="POST" onsubmit="return confirm('Hapus order ini?')">
+                                    <form action="{{ route('admin.order.destroy', $order->id) }}" method="POST" onsubmit="confirmAction(event, 'Hapus order ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button title="Hapus" class="w-[24px] h-[24px] flex items-center justify-center rounded cursor-pointer hover:bg-slate-200 transition-colors duration-150">

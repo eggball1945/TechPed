@@ -86,4 +86,18 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('success', 'Ulasan berhasil dihapus.');
     }
+
+    public function destroyAll()
+    {
+        $isAdmin = auth('admin')->check();
+        $isPetugas = auth('petugas')->check();
+
+        if (!$isAdmin && !$isPetugas) {
+            abort(403, 'Anda tidak memiliki akses untuk menghapus semua ulasan.');
+        }
+
+        Review::truncate();
+
+        return redirect()->back()->with('success', 'Semua ulasan berhasil dihapus.');
+    }
 }
