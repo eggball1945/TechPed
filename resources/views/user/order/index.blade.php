@@ -477,6 +477,7 @@
                     toast: true,
                     position: 'top-end',
                     icon: 'success',
+                    iconColor: '#7c3aed',
                     title: 'Resi berhasil disalin!',
                     text: text,
                     showConfirmButton: false,

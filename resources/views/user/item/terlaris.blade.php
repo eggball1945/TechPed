@@ -60,11 +60,11 @@
                 </span>
             </div>
             <h2 class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tighter">
-                Produk <span class="text-violet-700">Terlaris</span>
+                Produk <span class="text-violet-700">Terpopuler</span>
             </h2>
         </div>
         <a href="{{ route('user.products', ['sort' => 'terlaris']) }}" class="inline-flex items-center gap-2 text-xs font-black text-violet-700 hover:text-violet-800 transition-colors uppercase tracking-widest group">
-            <span>Lihat Semua Terlaris</span> 
+            <span>Lihat Semua Terpopuler</span> 
             <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
     </div>

@@ -25,10 +25,10 @@
             <div class="p-8 md:p-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest px-1">Nama Lengkap</label>
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest px-1">Username</label>
                         <input type="text" name="nama_depan" value="{{ old('nama_depan', $user->nama_depan) }}"
                             class="w-full rounded-2xl border-2 border-gray-50 bg-gray-50 px-5 py-4 text-sm font-bold text-gray-700 focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 focus:bg-white transition-all outline-none"
-                            placeholder="Masukkan nama lengkap">
+                            placeholder="Masukkan nama anda">
                         @error('nama_depan') <p class="text-rose-500 text-[10px] font-bold mt-1 px-1">{{ $message }}</p> @enderror
                     </div>
 

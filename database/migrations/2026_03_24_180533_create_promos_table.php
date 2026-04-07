@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('promos', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // misal 'hardware_promo'
+            $table->string('name');
             $table->dateTime('end_date');
             $table->timestamps();
         });

@@ -2,15 +2,15 @@
     <div class="w-[740px] bg-white rounded-md border border-gray-300 p-4">
         <div class="w-[710px] overflow-x-auto">
             <table class="w-full border-collapse">
-                <thead>
-                    <tr class="grid grid-cols-7 border-b border-slate-200">
-                        <th class="text-left text-[10px] font-medium py-2 px-2">Order ID</th>
-                        <th class="text-left text-[10px] font-medium py-2 px-3">Pelanggan</th>
-                        <th class="text-left text-[10px] font-medium py-2 px-1.5">Tanggal</th>
-                        <th class="text-left text-[10px] font-medium py-2 px-1">Jumlah Barang</th>
-                        <th class="text-left text-[10px] font-medium py-2">Total Harga</th>
-                        <th class="text-left text-[10px] font-medium py-2">Status</th>
-                        <th class="text-center text-[10px] font-medium py-2 px-2">Aksi</th>
+                <thead class="bg-gray-50/50 border-b border-gray-200">
+                    <tr class="grid grid-cols-7">
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Order ID</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Pelanggan</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Tanggal</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Jumlah Barang</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Total Harga</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Status</th>
+                        <th class="text-center text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

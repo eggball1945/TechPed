@@ -37,7 +37,7 @@
             <div class="bg-white rounded-4xl shadow-xl shadow-gray-200/50 p-8 md:p-10 border border-gray-50">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-10 h-2 bg-violet-700 rounded-full"></div>
-                    <h2 class="text-3xl font-black text-gray-900 tracking-tighter uppercase italic">Detail Penagihan</h2>
+                    <h2 class="text-3xl font-black text-gray-900 tracking-tighter">Detail Penagihan</h2>
                 </div>
 
                 <form method="POST" action="{{ route('checkout.store') }}" id="checkout-form" enctype="multipart/form-data">
@@ -53,14 +53,14 @@
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Alamat</label>
                     <select id="address-select"
-                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:ring-2 focus:ring-violet-500 focus:border-transparent hover:border-violet-700 transition outline-none">
-                        <option value="new">+ Alamat Baru</option>
+                        onclick="event.stopPropagation();"
+                        class="w-full rounded-lg border border-gray-200 px-4 py-3.5 text-sm font-medium text-gray-700 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-violet-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M7%2010L12%2015L17%2010%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5rem_1.5rem] bg-[position:right_1rem_center] bg-no-repeat cursor-pointer transition-all outline-none hover:border-violet-300">
+                        <option value="new" class="font-medium">+ Tambah Alamat Baru</option>
                         @foreach ($addresses as $addr)
                             <option value="{{ $addr->id }}" data-alamat="{{ $addr->alamat }}"
                                 data-kota="{{ $addr->kota }}" data-provinsi="{{ $addr->provinsi }}"
                                 data-kode_pos="{{ $addr->kode_pos }}">
-                                {{ $addr->alamat }}, {{ $addr->kota }}, {{ $addr->provinsi }} -
-                                {{ $addr->kode_pos }}
+                                {{ $addr->alamat }}, {{ $addr->kota }}, {{ $addr->provinsi }} - {{ $addr->kode_pos }}
                             </option>
                         @endforeach
                     </select>
@@ -272,7 +272,14 @@
                         <div class="flex items-center gap-3 mb-3">
                             <span class="font-medium text-gray-800">{{ \App\Models\SystemSetting::get('bank_name', 'Bank Central Asia (BCA)') }}</span>
                         </div>
-                        <p class="text-sm text-gray-600">Nomor Rekening: <strong class="font-semibold">{{ \App\Models\SystemSetting::get('bank_account_number', '1234 5678 9012 3456') }}</strong></p>
+                        <div class="flex items-center gap-2 mb-1">
+                            <p class="text-sm text-gray-600">Nomor Rekening: <strong id="bank-acc-number" class="font-semibold">{{ \App\Models\SystemSetting::get('bank_account_number', '1234 5678 9012 3456') }}</strong></p>
+                            <button type="button" onclick="copyToClipboard('bank-acc-number', 'Nomor Rekening')" class="p-1 text-gray-400 hover:text-violet-700 transition-colors bg-gray-50 rounded-md hover:bg-violet-50 group relative cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                                </svg>
+                            </button>
+                        </div>
                         <p class="text-sm text-gray-600 mb-3">a.n. <strong>{{ \App\Models\SystemSetting::get('bank_account_name', 'TechPed Indonesia') }}</strong></p>
                         <div class="mt-3">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Upload Bukti Transfer <span class="text-red-500">*</span></label>
@@ -282,7 +289,6 @@
                     </div>
 
                     <div id="qris-details" class="mt-4 p-4 border border-gray-200 rounded-lg hidden relative overflow-hidden bg-white">
-                        {{-- QRIS Section Content --}}
                         <div id="qris-main-content">
                             <div class="flex flex-col items-center gap-3 mb-4 text-center">
                                 <span class="font-medium text-gray-800 text-sm">Scan QRIS untuk Pembayaran</span>
@@ -300,7 +306,6 @@
                             </div>
                         </div>
 
-                        {{-- Local Zoom Overlay (Within Card) --}}
                         <div id="qris-local-zoom" class="absolute inset-0 bg-white z-20 hidden flex-col items-center justify-center p-4 transition-all duration-300">
                             <button id="close-local-zoom" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors p-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -312,7 +317,6 @@
                         </div>
                     </div>
 
-                    {{-- Hidden common input for proof image to avoid complex controller changes --}}
                     <input type="hidden" form="checkout-form" name="proof_image_placeholder" id="proof_image_placeholder">
                     
                     <div id="proof-warning" class="hidden items-center gap-2 mt-3 p-3 bg-violet-50 rounded-lg text-violet-700 text-sm font-medium border border-violet-100 mb-2">
@@ -334,6 +338,35 @@
 </div>
 
 <script>
+    function copyToClipboard(elementId, label) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            if(typeof Swal !== 'undefined') {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    iconColor: '#7c3aed',
+                    title: label + ' berhasil disalin!',
+                    text: text,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showCloseButton: true,
+                    customClass: {
+                        popup: '!bg-white !rounded-2xl !shadow-2xl border border-gray-100',
+                        title: '!text-violet-700 !font-bold !text-sm',
+                        htmlContainer: '!text-gray-500 !text-xs !font-medium'
+                    }
+                });
+            } else {
+                alert(label + ' disalin!');
+            }
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         @if ($errors->any())
             const errors = {!! json_encode($errors->getMessages()) !!};

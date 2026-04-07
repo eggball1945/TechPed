@@ -84,6 +84,16 @@
             </span>
         </a>
 
+        <a href="{{ route('admin.promo.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('admin.promo.*') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+            <span class="text-[15px] font-medium {{ request()->routeIs('admin.promo.*') ? 'text-white' : 'text-gray-700' }}">
+                Promo
+            </span>
+        </a>
+
         <a href="{{ route('admin.backup.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('admin.backup.index') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>

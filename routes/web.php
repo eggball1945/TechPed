@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\user\UserProductController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\ProductController as AdminProductController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\Order\Controller;
@@ -139,6 +140,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/admin/reviews/destroy-all', [ReviewController::class, 'destroyAll'])->name('review.destroyAll');
         Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 
+        // PROMO
+        Route::get('/promo', [PromoController::class, 'index'])->name('promo.index');
+        Route::post('/promo', [PromoController::class, 'store'])->name('promo.store');
+        Route::put('/promo/{id}', [PromoController::class, 'update'])->name('promo.update');
+        Route::delete('/promo/{id}', [PromoController::class, 'destroy'])->name('promo.destroy');
+
         // STRUK
         Route::get('/struk', [StrukController::class, 'index'])->name('struk.index');
         Route::get('/struk/{order}/cetak', [StrukController::class, 'cetak'])->name('struk.cetak');
@@ -202,6 +209,13 @@ Route::prefix('petugas')->name('petugas.')->group(function () {
         Route::get('/reviews', [ReviewController::class, 'index'])->name('review.index');
         Route::delete('/reviews/destroy-all', [ReviewController::class, 'destroyAll'])->name('review.destroyAll');
         Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
+        
+        // PROMO
+        Route::get('/promo', [PromoController::class, 'index'])->name('promo.index');
+        Route::post('/promo', [PromoController::class, 'store'])->name('promo.store');
+        Route::put('/promo/{id}', [PromoController::class, 'update'])->name('promo.update');
+        Route::delete('/promo/{id}', [PromoController::class, 'destroy'])->name('promo.destroy');
+
         // STRUK
         Route::get('/struk', [StrukController::class, 'index'])->name('struk.index');
         Route::get('/struk/{order}/cetak', [StrukController::class, 'cetak'])->name('struk.cetak');

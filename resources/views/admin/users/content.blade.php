@@ -8,14 +8,16 @@
 
     <div class="w-[1037px] overflow-x-auto">
         <table class="w-full border-collapse">
-            <tr class="grid grid-cols-6 border-b border-slate-200">
-                <th class="text-left text-[10px] font-medium py-2 px-4">User</th>
-                <th class="text-left text-[10px] font-medium py-2 px-4">Role</th>
-                <th class="text-left text-[10px] font-medium py-2 px-4">Jumlah Order</th>
-                <th class="text-left text-[10px] font-medium py-2 px-4">Total Belanja</th>
-                <th class="text-left text-[10px] font-medium py-2 px-4">Status</th>
-                <th class="text-center text-[10px] font-medium py-2 px-4">Aksi</th>
-            </tr>
+            <thead class="bg-gray-50/50 border-b border-gray-200">
+                <tr class="grid grid-cols-6">
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">User</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Role</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Jumlah Order</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Total Belanja</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Status</th>
+                    <th class="text-center text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Aksi</th>
+                </tr>
+            </thead>
 
             @foreach($items as $item)
                 <tr class="grid grid-cols-6 items-center border-b border-slate-100 hover:bg-slate-50 text-[11px]">

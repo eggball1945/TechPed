@@ -40,12 +40,12 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-[80px_1fr_150px_100px_150px] text-xs font-medium border-b border-gray-200 pb-2 mb-2 px-2">
-        <span>Peringkat</span>
-        <span>Produk</span>
-        <span class="text-right">Harga Rata-rata</span>
-        <span class="text-right">Unit Terjual</span>
-        <span class="text-right">Pendapatan</span>
+    <div class="grid grid-cols-[80px_1fr_150px_100px_150px] bg-gray-50/50 border-b border-gray-200 py-3 px-2 mb-2">
+        <span class="text-left text-[9px] font-bold text-black uppercase tracking-widest">Peringkat</span>
+        <span class="text-left text-[9px] font-bold text-black uppercase tracking-widest">Produk</span>
+        <span class="text-right text-[9px] font-bold text-black uppercase tracking-widest">Harga Rata-rata</span>
+        <span class="text-right text-[9px] font-bold text-black uppercase tracking-widest">Unit Terjual</span>
+        <span class="text-right text-[9px] font-bold text-black uppercase tracking-widest">Pendapatan</span>
     </div>
 
     @foreach ($laporan as $index => $row)
@@ -92,11 +92,11 @@
 <div class="w-[1080px] bg-white rounded-lg border border-gray-300 p-4 mt-8">
     <h2 class="font-medium text-[12px] leading-[24px] text-black mb-4">Laporan Barang Masuk (Inventaris)</h2>
 
-    <div class="grid grid-cols-[1fr_150px_120px_120px] text-xs font-medium border-b border-gray-200 pb-2 mb-2 px-2">
-        <span>Produk</span>
-        <span>SKU</span>
-        <span>Kategori</span>
-        <span class="text-right">Stok Saat Ini</span>
+    <div class="grid grid-cols-[1fr_150px_120px_120px] bg-gray-50/50 border-b border-gray-200 py-3 px-2 mb-2">
+        <span class="text-left text-[9px] font-bold text-black uppercase tracking-widest">Produk</span>
+        <span class="text-left text-[9px] font-bold text-black uppercase tracking-widest">SKU</span>
+        <span class="text-left text-[9px] font-bold text-black uppercase tracking-widest">Kategori</span>
+        <span class="text-right text-[9px] font-bold text-black uppercase tracking-widest">Stok Saat Ini</span>
     </div>
 
     @foreach ($barangMasuk as $item)

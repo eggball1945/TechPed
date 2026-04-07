@@ -19,14 +19,14 @@
     <div class="w-full bg-white rounded-md border border-gray-300 p-4">
         <div class="overflow-x-auto">
             <table class="w-full border-collapse">
-                <thead>
-                    <tr class="bg-gray-50/50 border-b border-slate-200">
-                        <th class="text-left text-[11px] font-bold py-3 px-4 text-gray-500 uppercase tracking-wider">Nama</th>
-                        <th class="text-left text-[11px] font-bold py-3 px-4 text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="text-left text-[11px] font-bold py-3 px-4 text-gray-500 uppercase tracking-wider">Telepon</th>
-                        <th class="text-left text-[11px] font-bold py-3 px-4 text-gray-500 uppercase tracking-wider">Tanggal</th>
-                        <th class="text-left text-[11px] font-bold py-3 px-4 text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="text-center text-[11px] font-bold py-3 px-4 text-gray-500 uppercase tracking-wider">Aksi</th>
+                <thead class="bg-gray-50/50 border-b border-gray-200">
+                    <tr>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Nama</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Email</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Telepon</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Tanggal</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Status</th>
+                        <th class="text-center text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Aksi</th>
                     </tr>
                 </thead>
 

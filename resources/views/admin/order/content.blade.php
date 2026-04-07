@@ -50,15 +50,15 @@
 
     <div class="w-[1037px] overflow-x-auto">
         <table class="w-full border-collapse">
-            <thead>
-                <tr class="grid grid-cols-7 border-b border-slate-200">
-                    <th class="text-left text-[10px] font-medium py-2 px-2">Order ID</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-3">Pelanggan</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-1.5">Tanggal</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-4">Jumlah Barang</th>
-                    <th class="text-left text-[10px] font-medium py-2">Total Harga</th>
-                    <th class="text-left text-[10px] font-medium py-2">Status</th>
-                    <th class="text-center text-[10px] font-medium py-2 px-2">Aksi</th>
+            <thead class="bg-gray-50/50 border-b border-gray-200">
+                <tr class="grid grid-cols-7">
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Order ID</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Pelanggan</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Tanggal</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Jumlah Barang</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Total Harga</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Status</th>
+                    <th class="text-center text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Aksi</th>
                 </tr>
             </thead>
         
@@ -258,11 +258,166 @@
         </div>
 
         <div class="w-[360px] mt-8">
-            <button id="btnMasukkanStruk" class="w-full h-[40px] bg-violet-700 rounded-full flex items-center justify-center transition">
+            <button id="btnMasukkanStruk" class="w-full h-[40px] bg-violet-700 rounded-full flex items-center justify-center transition hover:bg-violet-800 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span class="font-medium text-[15px] leading-[18px] text-white">
                     Masukkan struk
                 </span>
             </button>
         </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Show Order Details
+        document.querySelectorAll('.btnShowOrder').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                try {
+                    const orderJson = this.dataset.order;
+                    const order = JSON.parse(orderJson);
+                    openDetailOrderModal(order);
+                } catch (error) {
+                    console.error('Error parsing order:', error);
+                    alert('Gagal memuat data order: ' + error.message);
+                }
+            });
+        });
+
+        // Filter Dropdown Toggle
+        const filterButton = document.getElementById('filterButton');
+        const filterMenu = document.getElementById('filterMenu');
+        const filterInput = document.getElementById('filterInput');
+
+        if (filterButton && filterMenu) {
+            filterButton.addEventListener('click', () => {
+                filterMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('#filterMenu li').forEach(item => {
+                item.addEventListener('click', function() {
+                    const val = this.dataset.value;
+                    const text = this.innerText;
+                    filterInput.value = val;
+                    filterButton.innerHTML = `${text} <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>`;
+                    filterMenu.classList.add('hidden');
+                });
+            });
+
+            // Close on click outside
+            document.addEventListener('click', (e) => {
+                if (!filterButton.contains(e.target) && !filterMenu.contains(e.target)) {
+                    filterMenu.classList.add('hidden');
+                }
+            });
+        }
+    });
+
+    window.openDetailOrderModal = function(order) {
+        try {
+            const card = document.getElementById('cardDetailOrder');
+            if (!card) return;
+
+            card.classList.remove('hidden');
+            card.classList.add('flex');
+
+            document.getElementById('order_id').textContent = order.id;
+            document.getElementById('order_tanggal').textContent = order.tanggal;
+            document.getElementById('order_customer').textContent = order.user?.nama_depan ?? order.username ?? '-';
+            document.getElementById('order_email').textContent = order.email ?? order.user?.email ?? '-';
+            document.getElementById('order_telepon').textContent = order.no_telepon ?? order.user?.no_telepon ?? '-';
+
+            const statusBadge = document.getElementById('order_status_badge');
+            if (statusBadge) {
+                if (order.status === 'selesai') {
+                    statusBadge.textContent = 'Selesai';
+                } else if (order.status === 'dikirim') {
+                    statusBadge.textContent = 'Dikirim';
+                } else {
+                    statusBadge.textContent = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+                }
+                statusBadge.className = "px-2 py-1 rounded-md text-[8px] font-medium min-w-[45px] h-[20px] flex items-center justify-center";
+                switch (order.status) {
+                    case 'selesai': statusBadge.classList.add('bg-green-100', 'text-green-700'); break;
+                    case 'dikirim': statusBadge.classList.add('bg-blue-100', 'text-blue-700'); break;
+                    case 'diproses': statusBadge.classList.add('bg-yellow-100', 'text-yellow-700'); break;
+                    case 'tertunda': statusBadge.classList.add('bg-orange-100', 'text-orange-700'); break;
+                    case 'dibatalkan': statusBadge.classList.add('bg-red-100', 'text-red-700'); break;
+                    default: statusBadge.classList.add('bg-gray-100', 'text-gray-700'); break;
+                }
+            }
+
+            const productsContainer = document.getElementById('order_products');
+            if (productsContainer) {
+                productsContainer.innerHTML = '';
+                if (order.products && Array.isArray(order.products)) {
+                    order.products.forEach(prod => {
+                        const div = document.createElement('div');
+                        div.className = 'flex flex-row items-center gap-2 py-1 border-b border-gray-50 last:border-0';
+                        const img = document.createElement('img');
+                        img.className = 'w-10 h-10 object-cover rounded flex-shrink-0';
+                        img.src = (prod.gambar_array && prod.gambar_array.length > 0) ? `/storage/${prod.gambar_array[0]}` : '/images/default.webp';
+                        const textDiv = document.createElement('div');
+                        textDiv.className = 'flex flex-col';
+                        textDiv.innerHTML = `<span class="font-medium text-[11px] text-black">${prod.nama_produk}</span>
+                                             <span class="font-medium text-[9px] text-black/50">${prod.pivot?.jumlah ?? 1} x Rp ${Number(prod.pivot?.harga ?? prod.harga).toLocaleString('id')}</span>`;
+                        div.appendChild(img);
+                        div.appendChild(textDiv);
+                        productsContainer.appendChild(div);
+                    });
+                }
+            }
+
+            document.getElementById('order_subtotal').textContent = `Rp ${Number(order.subtotal ?? 0).toLocaleString('id')}`;
+            document.getElementById('order_ongkir').textContent = `Rp ${Number(order.shipping_cost ?? 0).toLocaleString('id')}`;
+            document.getElementById('order_tax').textContent = `Rp ${Number(order.pajak ?? 0).toLocaleString('id')}`;
+            document.getElementById('order_discount').textContent = `- Rp ${Number(order.diskon ?? 0).toLocaleString('id')}`;
+            document.getElementById('order_total').textContent = `Rp ${Number(order.total_harga ?? 0).toLocaleString('id')}`;
+
+            document.getElementById('order_ekspedisi').textContent = order.shipping ?? '-';
+            const fullAlamat = [order.alamat, order.kota, order.provinsi, order.kode_pos].filter(Boolean).join(', ');
+            document.getElementById('order_alamat').textContent = fullAlamat || '-';
+            document.getElementById('order_tracking').textContent = order.resi ?? '-';
+
+            const proofContainer = document.getElementById('order_proof_container');
+            const proofImg = document.getElementById('order_proof_img');
+            if (proofContainer && proofImg) {
+                if (order.proof_image) {
+                    proofContainer.classList.remove('hidden');
+                    proofImg.src = `/storage/${order.proof_image}`;
+                } else {
+                    proofContainer.classList.add('hidden');
+                }
+            }
+
+            const btnStruk = document.getElementById('btnMasukkanStruk');
+            if (btnStruk) {
+                if (order.status === 'diproses' || order.status === 'tertunda') {
+                    btnStruk.disabled = false;
+                    btnStruk.classList.remove('opacity-50', 'cursor-not-allowed');
+                    btnStruk.onclick = () => {
+                        sessionStorage.setItem('selectedOrder', JSON.stringify(order));
+                        window.location.href = "{{ route('admin.struk.index') }}";
+                    };
+                } else {
+                    btnStruk.disabled = true;
+                    btnStruk.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+        } catch (error) {
+            console.error('Error in openDetailOrderModal:', error);
+        }
+    };
+
+    window.closeDetailOrderModal = function() {
+        const card = document.getElementById('cardDetailOrder');
+        if (card) {
+            card.classList.add('hidden');
+            card.classList.remove('flex');
+        }
+    };
+</script>
+
     </div>
 </div>

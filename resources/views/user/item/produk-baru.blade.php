@@ -85,7 +85,7 @@
 
                             <div class="mt-2 relative z-10">
                                 <h4 class="font-bold text-sm sm:text-lg text-white line-clamp-1 tracking-tight">{{ $product->nama_produk }}</h4>
-                                <p class="text-[10px] sm:text-xs text-white/60 mt-1 line-clamp-2 italic">{{ Str::limit($product->deskripsi ?? 'Deskripsi tidak tersedia', 40) }}</p>
+                                <p class="text-[10px] sm:text-xs text-white/60 mt-1 line-clamp-2">{{ Str::limit($product->deskripsi ?? 'Deskripsi tidak tersedia', 40) }}</p>
                                 <a href="{{ route('user.products.show', $product->id) }}"
                                 class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest mt-2 sm:mt-3 group/link">
                                     <span>Belanja Sekarang</span>

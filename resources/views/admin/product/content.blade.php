@@ -57,15 +57,15 @@
     
     <div class="w-[1037px] overflow-x-auto">
         <table class="w-full border-collapse">
-            <thead>
-                <tr class="border-b border-slate-200">
-                    <th class="text-left text-[10px] font-medium py-2 px-2">Produk</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-2">SKU</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-2">Kategori</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-2">Harga</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-2">Stok</th>
-                    <th class="text-left text-[10px] font-medium py-2 px-2">Status</th>
-                    <th class="text-center text-[10px] font-medium py-2 px-2">Aksi</th>
+            <thead class="bg-gray-50/50 border-b border-gray-200">
+                <tr>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Produk</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">SKU</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Kategori</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Harga</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Stok</th>
+                    <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Status</th>
+                    <th class="text-center text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Aksi</th>
                 </tr>
             </thead>
 

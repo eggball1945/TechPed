@@ -2,15 +2,15 @@
     <div class="w-[740px] bg-white rounded-md border border-gray-300 p-4">
         <div class="w-[710px] overflow-x-auto">
             <table class="w-full border-collapse">
-                <thead>
-                    <tr class="grid grid-cols-7 border-b border-slate-200">
-                        <th class="text-left text-[10px] font-medium py-2 px-2">Order ID</th>
-                        <th class="text-left text-[10px] font-medium py-2 px-3">Pelanggan</th>
-                        <th class="text-left text-[10px] font-medium py-2 px-1.5">Tanggal</th>
-                        <th class="text-left text-[10px] font-medium py-2 px-1">Jumlah Barang</th>
-                        <th class="text-left text-[10px] font-medium py-2">Total Harga</th>
-                        <th class="text-left text-[10px] font-medium py-2">Status</th>
-                        <th class="text-center text-[10px] font-medium py-2 px-2">Aksi</th>
+                <thead class="bg-gray-50/50 border-b border-gray-200">
+                    <tr class="grid grid-cols-7">
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Order ID</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Pelanggan</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-2">Tanggal</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Jumlah Barang</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-1">Total Harga</th>
+                        <th class="text-left text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Status</th>
+                        <th class="text-center text-[9px] font-bold text-black uppercase tracking-widest py-3 px-4">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,7 +133,7 @@
         </div>
     </div>
 
-    <button id="cetakStrukBtn" class="w-full mt-4 h-9 bg-violet-700 text-white rounded-md text-[15px] font-medium hover:bg-violet-800 transition">
+    <button id="cetakStrukBtn" class="w-full mt-4 h-9 bg-violet-700 text-white rounded-md text-[15px] font-medium hover:bg-violet-800 transition cursor-pointer">
         Cetak Struk
     </button>
 </div>
@@ -237,7 +237,7 @@
                     openDetailOrderModal(order);
                 } catch (error) {
                     console.error('Error parsing order:', error);
-                    alert('Gagal memuat data order: ' + error.message);
+                    alertAction('Gagal memuat data order: ' + error.message);
                 }
             });
         });
@@ -263,7 +263,7 @@
                     fillStrukForm(window.lastOrder);
                     closeDetailOrderModal();
                 } else {
-                    alert('Tidak ada order yang dipilih. Silakan buka detail order terlebih dahulu.');
+                    alertAction('Tidak ada order yang dipilih. Silakan buka detail order terlebih dahulu.');
                 }
             });
         }
@@ -274,7 +274,7 @@
             cetakBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (!window.lastOrder) {
-                    alert('Tidak ada order yang dipilih. Silakan isi form dengan memilih order terlebih dahulu.');
+                    alertAction('Tidak ada order yang dipilih. Silakan isi form dengan memilih order terlebih dahulu.');
                     return;
                 }
 
@@ -308,12 +308,12 @@
                         // Refresh page to clear list or update status
                         window.location.reload();
                     } else {
-                        alert('Gagal mengubah status: ' + (data.message || 'Unknown error'));
+                        alertAction('Gagal mengubah status: ' + (data.message || 'Unknown error'));
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Terjadi kesalahan saat mengirim data');
+                    alertAction('Terjadi kesalahan saat mengirim data');
                 })
                 .finally(() => {
                     cetakBtn.disabled = false;
