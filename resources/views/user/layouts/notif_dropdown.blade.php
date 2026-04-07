@@ -1,6 +1,6 @@
 <div id="notifDropdown"
-    class="absolute right-0 mt-3 w-[360px] bg-white rounded-2xl shadow-2xl border border-gray-100/80
-        invisible opacity-0 scale-95 transition-all duration-200 origin-top-right
+    class="fixed sm:absolute inset-x-4 sm:inset-auto sm:right-0 top-[70px] sm:top-auto sm:mt-3 w-auto sm:w-[360px] bg-white rounded-2xl shadow-2xl border border-gray-100/80
+        invisible opacity-0 scale-95 transition-all duration-200 origin-top sm:origin-top-right
         z-[9999]">
     <div class="p-4 border-b border-gray-100">
         <h3 class="font-semibold text-base text-gray-900">Notifikasi</h3>
