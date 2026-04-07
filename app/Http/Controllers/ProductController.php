@@ -175,6 +175,6 @@ class ProductController extends Controller
         $product->delete();
 
         $role = $this->userRole();
-        return redirect()->route("{$role}.products.index")->with('success', 'Produk berhasil dihapus');
+        return redirect()->route("{$role}.product.index")->with('success', 'Produk berhasil dihapus');
     }
 }

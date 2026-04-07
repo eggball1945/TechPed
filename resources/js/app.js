@@ -117,7 +117,8 @@ window.openEditModal = function (product) {
 
     cardEdit.classList.remove('hidden');
     cardEdit.classList.add('flex');
-    form.action = `/admin/products/${product.id}`;
+    const role = window.location.pathname.split('/')[1] || 'admin';
+    form.action = `/${role}/products/${product.id}`;
 
     const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
     setVal('edit_product_id', product.id);

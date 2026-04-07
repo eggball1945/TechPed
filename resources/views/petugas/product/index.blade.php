@@ -44,7 +44,7 @@
             Tambah Produk Baru
         </h2>
 
-        <form method="POST" action="{{ route('admin.product.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('petugas.product.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="flex justify-between gap-4 mb-3">

@@ -12,16 +12,16 @@
         <input type="hidden" name="status" id="statusInput" value="{{ request('status','all') }}">
     </form>
 
-    <div class="w-full flex items-center gap-3 mb-4">
+    <form method="GET" action="{{ route('admin.order.index') }}" class="w-full flex items-center gap-3 mb-4">
         <div class="flex-1 relative mt-4">
             <svg class="absolute left-2 top-1/2 -translate-y-1/2 w-[14px] h-[14px] text-black/40 pointer-events-none" viewBox="0 0 19 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5167 16.625L10.5292 11.6375C10.1333 11.9542 9.67813 12.2049 9.16354 12.3896C8.64896 12.5743 8.10139 12.6667 7.52083 12.6667C6.08264 12.6667 4.86558 12.1684 3.86967 11.172C2.87375 10.1756 2.37553 8.9585 2.375 7.52083C2.37447 6.08317 2.87269 4.86611 3.86967 3.86967C4.86664 2.87322 6.08369 2.375 7.52083 2.375C8.95797 2.375 10.1753 2.87322 11.1728 3.86967C12.1703 4.86611 12.6683 6.08317 12.6667 7.52083C12.6667 8.10139 12.5743 8.64896 12.3896 9.16354C12.2049 9.67812 11.9542 10.1333 11.6375 10.5292L16.625 15.5167L15.5167 16.625ZM7.52083 11.0833C8.51042 11.0833 9.3517 10.7371 10.0447 10.0447C10.7376 9.35222 11.0839 8.51094 11.0833 7.52083C11.0828 6.53072 10.7366 5.68971 10.0447 4.99779C9.35275 4.30588 8.51147 3.95939 7.52083 3.95833C6.53019 3.95728 5.68918 4.30376 4.99779 4.99779C4.3064 5.69182 3.95992 6.53283 3.95833 7.52083C3.95675 8.50883 4.30324 9.35011 4.99779 10.0447C5.69235 10.7392 6.53336 11.0854 7.52083 11.0833Z" fill="black" fill-opacity="0.4"/>
             </svg>
-            <input type="text" placeholder="Cari Order" class="w-full h-6 bg-slate-50 pl-7 pr-2 text-[10px] rounded border border-slate-200 focus:border-violet-700 focus:outline-none transition"/>
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Order" class="w-full h-6 bg-slate-50 pl-7 pr-2 text-[10px] rounded border border-slate-200 focus:border-violet-700 focus:outline-none transition"/>
         </div>
 
         <div class="relative mt-4">
-            <button id="filterButton" class="h-6 px-2 border border-gray-100 rounded text-[10px] flex items-center justify-between w-32 bg-white">
+            <button id="filterButton" type="button" class="h-6 px-2 border border-gray-100 rounded text-[10px] flex items-center justify-between w-32 bg-white">
                 {{ request('filter') ? ucfirst(str_replace('_',' ',request('filter'))) : 'Urut Berdasarkan' }}
                 <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -42,11 +42,12 @@
             </ul>
         </div>
 
-        <form method="GET" action="{{ route('admin.order.index') }}" id="filterForm">
+        <div class="flex items-center gap-2">
+            <input type="hidden" name="status" value="{{ request('status') }}">
             <input type="hidden" name="filter" id="filterInput" value="{{ request('filter') }}">
             <button type="submit" class="h-6 px-2 bg-violet-700 text-white shadow-md rounded text-[10px] mt-4 cursor-pointer">Terapkan</button>
-        </form>
-    </div>
+        </div>
+    </form>
 
     <div class="w-[1037px] overflow-x-auto">
         <table class="w-full border-collapse">
