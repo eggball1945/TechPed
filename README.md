@@ -41,7 +41,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal:
 
 ### 1. Prasyarat
 Pastikan Anda telah menginstal:
-- PHP >= 8.2
+- PHP >= 8.4
 - Composer
 - Node.js & NPM
 - MySQL atau SQLite
