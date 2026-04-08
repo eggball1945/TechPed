@@ -1,30 +1,30 @@
-# TechPed - Modern Electronics Marketplace
+# TechPed - Marketplace Elektronik Modern
 
-TechPed is a premium e-commerce platform built with Laravel and Tailwind CSS, specifically designed for electronics and technology products. It offers a seamless shopping experience for customers and a robust management suite for administrators and staff.
+TechPed adalah platform e-commerce premium yang dibangun menggunakan Laravel dan Tailwind CSS, dirancang khusus untuk produk teknologi dan elektronik. Platform ini menawarkan pengalaman belanja yang mulus bagi pelanggan serta ruang manajemen yang lengkap bagi admin dan petugas.
 
-## 🚀 Key Features
+## 🚀 Fitur Utama
 
-### 🛒 Customer Experience
-- **Responsive Interface**: Optimized for mobile, tablet, and desktop viewing.
-- **Flash Sales & Categories**: Interactive flash sale countdowns and organized product categories.
-- **Advanced Sorting**: Sort products by Popularity (Sales), Newest, or Price.
-- **Smart Product Search**: Real-time product search and results.
-- **Rich Product Detail**: Multi-image galleries, detailed specifications, and related product suggestions.
-- **Photo Reviews**: Share and view product feedback with photos and a full-screen image viewer.
-- **Complete Checkout Flow**: Shopping cart, address management, shipping selection, and payment proof upload.
-- **Order Tracking**: Detailed order history with real-time status updates and receipt downloads.
+### 🛒 Pengalaman Pelanggan
+- **Antarmuka Responsif**: Dioptimalkan untuk tampilan mobile, tablet, dan desktop.
+- **Flash Sale & Kategori**: Hitung mundur flash sale interaktif dan kategori produk yang terorganisir.
+- **Pengurutan Lanjutan**: Urutkan produk berdasarkan Terpopuler (Penjualan), Terbaru, atau Harga.
+- **Pencarian Pintar**: Pencarian produk secara real-time.
+- **Detail Produk Lengkap**: Galeri multi-gambar, spesifikasi detail, dan saran produk terkait.
+- **Ulasan Foto**: Berikan dan lihat ulasan produk lengkap dengan foto dan penampil gambar layar penuh (full-screen viewer).
+- **Alur Checkout Lengkap**: Keranjang belanja, manajemen alamat, pilihan kurir, dan unggah bukti pembayaran.
+- **Pelacakan Pesanan**: Riwayat pesanan detail dengan status real-time dan unduh struk/invoice.
 
-### 📊 Management (Admin & Staff)
-- **Revenue Dashboard**: Monthly revenue charts and key performance metrics (Total Sales, Orders, Avg Rating).
-- **Inventory Management**: Real-time stock tracking with low-stock alerts.
-- **Order Processing**: Update order statuses, manage tracking numbers (Resi), and verify payments.
-- **Review Moderation**: View customer photos and manage product feedback.
-- **Promo System**: Manage promotional banners and discount codes.
-- **Advanced Reports**: Export sales and inventory data to PDF or Excel.
+### 📊 Manajemen (Admin & Petugas)
+- **Dashboard Pendapatan**: Grafik pendapatan bulanan dan metrik performa utama (Total Pendapatan, Order, Rata-rata Rating).
+- **Manajemen Inventaris**: Pelacakan stok real-time dengan peringatan stok menipis.
+- **Pemrosesan Pesanan**: Update status pesanan, kelola nomor resi, dan verifikasi pembayaran.
+- **Moderasi Ulasan**: Lihat foto dari pembeli dan kelola umpan balik produk.
+- **Sistem Promo**: Kelola banner promosi dan kode diskon.
+- **Laporan Lanjutan**: Ekspor data penjualan dan inventaris ke format PDF atau Excel.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Teknologi yang Digunakan
 
 - **Framework**: [Laravel 11](https://laravel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com)
@@ -35,77 +35,77 @@ TechPed is a premium e-commerce platform built with Laravel and Tailwind CSS, sp
 
 ---
 
-## 📦 Installation Guide
+## 📦 Panduan Instalasi
 
-Follow these steps to set up the project locally:
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal:
 
-### 1. Prerequisites
-Ensure you have the following installed:
+### 1. Prasyarat
+Pastikan Anda telah menginstal:
 - PHP >= 8.2
 - Composer
 - Node.js & NPM
-- MySQL or SQLite
+- MySQL atau SQLite
 
-### 2. Clone the Repository
+### 2. Clone Repositori
 ```bash
-git clone https://github.com/your-username/techped.git
+git clone https://github.com/username-anda/techped.git
 cd techped
 ```
 
-### 3. Install Dependencies
+### 3. Instal Dependensi
 ```bash
 composer install
 npm install
 ```
 
-### 4. Environment Configuration
-Copy the `.env.example` file to `.env`:
+### 4. Konfigurasi Lingkungan
+Salin file `.env.example` menjadi `.env`:
 ```bash
 cp .env.example .env
 ```
-Generate the application key:
+Generate application key:
 ```bash
 php artisan key:generate
 ```
-Configure your database connection in the `.env` file.
+Konfigurasikan koneksi database Anda di dalam file `.env`.
 
-### 5. Database Setup
-Run the migrations and seed the database with initial data:
+### 5. Setup Database
+Jalankan migrasi dan isi database dengan data awal:
 ```bash
 php artisan migrate --seed
 ```
 
 ### 6. Storage Link
-Create a symbolic link from `public/storage` to `storage/app/public` to make uploaded images accessible:
+Buat link simbolik dari `public/storage` ke `storage/app/public` agar gambar yang diunggah dapat diakses:
 ```bash
 php artisan storage:link
 ```
 
-### 7. Compile Assets
-For development:
+### 7. Kompilasi Aset
+Untuk pengembangan:
 ```bash
 npm run dev
 ```
-For production:
+Untuk produksi:
 ```bash
 npm run build
 ```
 
-### 8. Start the Server
+### 8. Jalankan Server
 ```bash
 php artisan serve
 ```
-The application will be accessible at `http://localhost:8000`.
+Aplikasi akan dapat diakses di `http://localhost:8000`.
 
 ---
 
-## 🔑 Access Roles
-*If using default seeders:*
-- **Customer**: Create a new account via Registration.
-- **Admin**: Login via `/admin/login`.
-- **Staff (Petugas)**: Login via `/petugas/login`.
+## 🔑 Akses Akun
+*Jika menggunakan seeder bawaan:*
+- **Pelanggan**: Buat akun baru melalui halaman Registrasi.
+- **Admin**: Login melalui `/admin/login`.
+- **Petugas**: Login melalui `/petugas/login`.
 
 ---
 
-## 📝 License
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📝 Lisensi
+Proyek ini adalah software open-source yang dilisensikan di bawah [lisensi MIT](https://opensource.org/licenses/MIT).
