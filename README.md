@@ -95,7 +95,7 @@ npm run build
 ```bash
 php artisan serve
 ```
-Aplikasi akan dapat diakses di `http://localhost:8000`.
+Aplikasi akan dapat diakses di `http://localhost:8000`. atau `127.0.0.1:8000`.
 
 ---
 
