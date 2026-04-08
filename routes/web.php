@@ -92,6 +92,10 @@ Route::middleware('auth')->group(function () {
         return response()->json(['success' => true]);
     })->name('notifications.read-all');
 
+    // Complaints
+    Route::get('/pesanan/{order}/komplain', [App\Http\Controllers\user\ComplaintController::class, 'create'])->name('complaints.create');
+    Route::post('/komplain', [App\Http\Controllers\user\ComplaintController::class, 'store'])->name('complaints.store');
+
     // Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
 });
@@ -170,6 +174,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/backup/download', [\App\Http\Controllers\BackupController::class, 'backup'])->name('backup.download');
         Route::post('/restore', [\App\Http\Controllers\BackupController::class, 'restore'])->name('backup.restore');
 
+        // COMPLAINTS
+        Route::get('/complaints', [App\Http\Controllers\admin\AdminComplaintController::class, 'index'])->name('complaints.index');
+        Route::get('/complaints/{id}', [App\Http\Controllers\admin\AdminComplaintController::class, 'show'])->name('complaints.show');
+        Route::post('/complaints/{id}', [App\Http\Controllers\admin\AdminComplaintController::class, 'update'])->name('complaints.update');
+
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
 });
@@ -231,6 +240,11 @@ Route::prefix('petugas')->name('petugas.')->group(function () {
         Route::post('/restore', [\App\Http\Controllers\BackupController::class, 'restore'])->name('backup.restore');
 
         Route::delete('/contact/{id}', [App\Http\Controllers\ContactController::class, 'destroy'])->name('contact.destroy');
+
+        // COMPLAINTS
+        Route::get('/complaints', [App\Http\Controllers\admin\AdminComplaintController::class, 'index'])->name('complaints.index');
+        Route::get('/complaints/{id}', [App\Http\Controllers\admin\AdminComplaintController::class, 'show'])->name('complaints.show');
+        Route::post('/complaints/{id}', [App\Http\Controllers\admin\AdminComplaintController::class, 'update'])->name('complaints.update');
 
         Route::post('/logout', [PetugasAuthController::class, 'logout'])->name('logout');
     });

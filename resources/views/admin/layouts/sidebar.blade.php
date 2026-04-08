@@ -43,6 +43,18 @@
             </span>
         </a>
 
+        <a href="{{ route('admin.complaints.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('admin.complaints.*') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+
+            <span class="text-[15px] font-medium {{ request()->routeIs('admin.complaints.*') ? 'text-white' : 'text-gray-700' }}">
+                Komplain
+            </span>
+        </a>
+
         {{-- <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md {{ request()->routeIs('admin.users.index') ? 'bg-violet-700 text-white' : 'hover:bg-gray-100 text-gray-700' }}">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13.3333 17.5V15.8333C13.3333 14.9493 12.9821 14.1014 12.357 13.4763C11.7319 12.8512 10.8841 12.5 10 12.5H5C4.11594 12.5 3.2681 12.8512 2.64298 13.4763C2.01786 14.1014 1.66667 14.9493 1.66667 15.8333V17.5M13.3333 2.60666C14.0481 2.79197 14.6812 3.20938 15.1331 3.79338C15.585 4.37738 15.8302 5.0949 15.8302 5.83333C15.8302 6.57175 15.585 7.28928 15.1331 7.87327C14.6812 8.45727 14.0481 8.87468 13.3333 9.05999M18.3333 17.5V15.8333C18.3328 15.0948 18.087 14.3773 17.6345 13.7936C17.182 13.2099 16.5484 12.793 15.8333 12.6083" stroke="currentColor" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -111,7 +123,7 @@
             </svg>
 
             <span class="text-[15px] font-medium {{ request()->routeIs('admin.setting.index') ? 'text-white' : 'text-gray-700' }}">
-                Setting
+                Pengaturan
             </span>
         </a>
 
