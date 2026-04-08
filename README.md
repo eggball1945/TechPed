@@ -26,7 +26,7 @@ TechPed adalah platform e-commerce premium yang dibangun menggunakan Laravel dan
 
 ## 🛠️ Teknologi yang Digunakan
 
-- **Framework**: [Laravel 11](https://laravel.com)
+- **Framework**: [Laravel 12](https://laravel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com)
 - **Database**: MySQL / SQLite
 - **Icons**: Lucide Icons / Font Awesome
