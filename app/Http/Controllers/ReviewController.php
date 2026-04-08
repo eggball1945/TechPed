@@ -36,7 +36,8 @@ class ReviewController extends Controller
             'product_id' => 'required|exists:products,id',
             'rating'     => 'required|integer|min:1|max:5',
             'komentar'   => 'nullable|string',
-            'show_name'  => 'boolean',
+            'show_name'  => 'nullable',
+            'gambar'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         // Ensure the order belongs to the authenticated user and is shipped or completed (final status)
@@ -44,7 +45,10 @@ class ReviewController extends Controller
             ->whereIn('status', ['dikirim', 'selesai'])
             ->findOrFail($request->order_id);
 
-        // Multiple reviews allowed per product/order as per user request
+        $gambarPath = null;
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('reviews', 'public');
+        }
 
         $review = Review::create([
             'user_id'    => Auth::id(),
@@ -52,7 +56,8 @@ class ReviewController extends Controller
             'order_id'   => $request->order_id,
             'rating'     => $request->rating,
             'komentar'   => $request->komentar,
-            'show_name'  => $request->boolean('show_name'),
+            'show_name'  => $request->has('show_name') ? filter_var($request->show_name, FILTER_VALIDATE_BOOLEAN) : true,
+            'gambar'     => $gambarPath,
         ]);
 
         return response()->json([

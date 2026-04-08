@@ -181,7 +181,7 @@
         </div>
 
         <div id="review-{{ $review->id }}" class="hidden fixed inset-0 bg-black/50 items-center justify-center z-50">
-            <div class="bg-white w-[500px] rounded-lg p-5">
+            <div class="bg-white w-[500px] max-h-[90vh] overflow-y-auto rounded-lg p-5 hide-scrollbar">
                 <h3 class="text-sm font-semibold mb-3">Detail Review</h3>
 
                 @php
@@ -206,6 +206,12 @@
                 <div class="max-h-[150px] overflow-y-auto mb-3">
                     <p class="text-xs text-gray-600 leading-relaxed">{{ $review->komentar ?? '-' }}</p>
                 </div>
+                @if($review->gambar)
+                    <div class="mb-3">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Foto dari pembeli:</p>
+                        <img src="{{ asset('storage/' . $review->gambar) }}" class="w-full max-h-[300px] object-contain rounded border border-gray-100">
+                    </div>
+                @endif
                 <p class="text-[10px] text-gray-500 mb-4 border-t border-gray-100 pt-2">Diterima pada: {{ $review->created_at->format('d M Y') }}</p>
                 <div class="text-right">
                     <button onclick="closeReview({{ $review->id }})" class="px-5 py-1.5 bg-violet-700 rounded text-xs text-white font-medium cursor-pointer hover:bg-violet-800 transition-colors">Tutup</button>

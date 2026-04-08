@@ -145,6 +145,14 @@
                             <p class="text-gray-500 text-xs leading-relaxed italic opacity-85 underline-offset-2">{{ $review->komentar }}</p>
                         </div>
 
+                        @if($review->gambar)
+                            <div class="mt-4 relative group/img w-fit">
+                                <div class="w-24 h-24 rounded-2xl overflow-hidden border border-gray-100 shadow-sm transition-all duration-300 group-hover/img:shadow-md group-hover/img:scale-[1.02]">
+                                    <img src="{{ asset('storage/' . $review->gambar) }}" class="w-full h-full object-cover cursor-pointer" onclick="openFullImage(this.src)">
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                 @endforeach
             </div>
@@ -190,6 +198,14 @@
     @endif
 </div>
 
+{{-- Full Image Modal --}}
+<div id="fullImageModal" class="fixed inset-0 bg-black/90 backdrop-blur-md hidden items-center justify-center z-[2000] p-4 opacity-0 transition-opacity duration-300" onclick="closeFullImage()">
+    <button class="absolute top-6 right-6 text-white/50 hover:text-white transition-all hover:rotate-90">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <img id="fullImage" src="" class="max-w-full max-h-full object-contain rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300">
+</div>
+
 <div id="deleteModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center z-[1000] p-4 animate-fade-in">
     <div class="bg-white rounded-[2rem] max-w-md w-full shadow-2xl transform transition-all animate-scale-up">
         {{-- Header --}}
@@ -228,6 +244,31 @@
 </div>
 
 <script>
+    function openFullImage(src) {
+        const modal = document.getElementById('fullImageModal');
+        const img = document.getElementById('fullImage');
+        img.src = src;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        setTimeout(() => {
+            modal.classList.add('opacity-100');
+            img.classList.remove('scale-95');
+            img.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeFullImage() {
+        const modal = document.getElementById('fullImageModal');
+        const img = document.getElementById('fullImage');
+        modal.classList.remove('opacity-100');
+        img.classList.remove('scale-100');
+        img.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 300);
+    }
+
     let currentReviewId = null;
     let currentDeleteUrl = null;
 

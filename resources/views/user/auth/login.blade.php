@@ -13,7 +13,7 @@
         
         {{-- Email/Phone Input --}}
         <div class="flex flex-col gap-2" style="animation: fadeInUp 0.8s ease-out forwards; animation-delay: 0.4s; opacity: 0;">
-            <label class="text-sm font-semibold text-gray-700 ml-1">Email atau No. Telepon</label>
+            <label class="text-sm font-semibold text-gray-700 ml-1">Email</label>
             <div class="relative group">
                 <input type="text" name="email_or_phone" 
                        placeholder="nama@email.com" 

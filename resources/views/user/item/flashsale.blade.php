@@ -36,7 +36,9 @@
     <div class="flex overflow-x-auto lg:grid lg:grid-cols-5 gap-6 pb-8 px-1 -mx-1 snap-x snap-mandatory hide-scrollbar animate-fade-in-up"
         style="animation-delay: 100ms">
         @foreach ($jelajahProducts as $product)
-            @include('user.item.product-card')
+            <div class="w-[280px] min-w-[280px] lg:w-auto lg:min-w-0 shrink-0 snap-start">
+                @include('user.item.product-card')
+            </div>
         @endforeach
     </div>
 </div>

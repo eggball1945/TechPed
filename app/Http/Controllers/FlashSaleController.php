@@ -20,7 +20,7 @@ class FlashSaleController extends Controller
 
         // 4 produk terlaris (berdasarkan total penjualan)
         $bestProducts = Product::select('products.*', 'sales.total_sold')
-            ->leftJoin(DB::raw('(
+            ->join(DB::raw('(
                 SELECT op.product_id, SUM(op.jumlah) as total_sold 
                 FROM order_product op 
                 JOIN orders o ON o.id = op.order_id 

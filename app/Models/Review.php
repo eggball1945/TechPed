@@ -13,6 +13,7 @@ class Review extends Model
         'rating',
         'komentar',
         'show_name',
+        'gambar',
     ];
 
     public function user()

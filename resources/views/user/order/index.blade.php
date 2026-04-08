@@ -282,6 +282,23 @@
                 </div>
                 <span class="text-xs font-bold text-gray-600">Tampilkan Nama Publik</span>
             </label>
+
+            <div>
+                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 px-1">Foto Produk (Opsional)</label>
+                <div class="flex items-center gap-4">
+                    <label for="reviewImage" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-gray-200 hover:border-violet-300 hover:bg-violet-50 transition-all cursor-pointer group">
+                        <svg class="w-5 h-5 text-gray-400 group-hover:text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <span class="text-xs font-bold text-gray-400 group-hover:text-violet-700 uppercase tracking-widest">Pilih Foto</span>
+                        <input type="file" id="reviewImage" class="hidden" accept="image/*" onchange="previewReviewImage(this)">
+                    </label>
+                    <div id="imagePreviewContainer" class="hidden relative w-12 h-12 shrink-0">
+                        <img id="imagePreview" src="" class="w-full h-full object-cover rounded-xl shadow-md border-2 border-white">
+                        <button onclick="removeReviewImage()" class="absolute -top-2 -right-2 bg-violet-500 text-white rounded-full p-0.5 shadow-sm hover:scale-110 transition-transform">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="flex flex-col gap-2 relative z-10">
@@ -393,6 +410,7 @@
         const rating = document.getElementById('reviewRating').value;
         const comment = document.getElementById('reviewComment').value;
         const showName = document.getElementById('reviewShowName').checked;
+        const imageFile = document.getElementById('reviewImage').files[0];
 
         if (rating == 0) {
             alert('Pilih rating terlebih dahulu.');
@@ -400,23 +418,27 @@
         }
 
         this.disabled = true;
+        const originalText = this.innerHTML;
         this.innerHTML = '<svg class="animate-spin h-5 w-5 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
 
         try {
+            const formData = new FormData();
+            formData.append('order_id', currentOrderId);
+            formData.append('product_id', currentProductId);
+            formData.append('rating', rating);
+            formData.append('komentar', comment);
+            formData.append('show_name', showName);
+            if (imageFile) {
+                formData.append('gambar', imageFile);
+            }
+
             const response = await fetch('{{ route('reviews.store') }}', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({
-                    order_id: currentOrderId,
-                    product_id: currentProductId,
-                    rating: rating,
-                    komentar: comment,
-                    show_name: showName
-                })
+                body: formData
             });
             const data = await response.json();
             if (data.success) {
@@ -425,15 +447,36 @@
             } else {
                 alert('Gagal mengirim ulasan: ' + (data.message || 'Terjadi kesalahan'));
                 this.disabled = false;
-                this.innerHTML = 'Publikasikan Ulasan';
+                this.innerHTML = originalText;
             }
         } catch (error) {
             console.error('Error:', error);
             alert('Terjadi kesalahan, coba lagi.');
             this.disabled = false;
-            this.innerHTML = 'Publikasikan Ulasan';
+            this.innerHTML = originalText;
         }
     });
+
+    window.previewReviewImage = function(input) {
+        const container = document.getElementById('imagePreviewContainer');
+        const preview = document.getElementById('imagePreview');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                container.classList.remove('hidden');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    window.removeReviewImage = function() {
+        const input = document.getElementById('reviewImage');
+        const container = document.getElementById('imagePreviewContainer');
+        input.value = '';
+        container.classList.add('hidden');
+    }
 
     // Confirmation Modal System
     let currentActionModule = { action: '', orderId: null };

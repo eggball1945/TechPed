@@ -5,9 +5,9 @@
     // Get products from controller variable or query if not set
     $sourceProducts = $bestProducts ?? ($bestSellingProducts ?? collect());
     
-    // Filter out products already in flashsale
+    // Filter out products already in flashsale and those with no sales
     $products = $sourceProducts->filter(function ($product) use ($excludeIds) {
-        return !in_array($product->id, $excludeIds);
+        return !in_array($product->id, $excludeIds) && ($product->total_sold > 0);
     });
 
     // If too few products after filtering, fetch more best selling items
@@ -16,10 +16,10 @@
             ->select('product_id', \Illuminate\Support\Facades\DB::raw('SUM(jumlah) as total_sold'))
             ->groupBy('product_id');
 
-        $additional = \App\Models\Product::leftJoinSub($salesSubquery, 'sales', function ($join) {
+        $additional = \App\Models\Product::joinSub($salesSubquery, 'sales', function ($join) {
                 $join->on('products.id', '=', 'sales.product_id');
             })
-            ->select('products.*', \Illuminate\Support\Facades\DB::raw('COALESCE(sales.total_sold, 0) as total_sold'))
+            ->select('products.*', \Illuminate\Support\Facades\DB::raw('sales.total_sold'))
             ->whereNotIn('products.id', $excludeIds)
             ->orderByDesc('total_sold')
             ->take(10)
@@ -73,7 +73,7 @@
     <div class="flex overflow-x-auto lg:grid lg:grid-cols-5 gap-6 pb-8 px-1 -mx-1 snap-x snap-mandatory hide-scrollbar animate-fade-in-up" style="animation-delay: 100ms">
         @foreach ($displayProducts as $item)
             <a href="{{ $item['url'] }}"
-                class="group w-[240px] min-w-[240px] lg:w-auto lg:min-w-0 shrink-0 snap-start lg:snap-none bg-white rounded-4xl p-4 border border-gray-50 shadow-xl shadow-gray-200/20 hover:shadow-2xl hover:shadow-violet-100/50 hover:-translate-y-2 transition-all duration-500 flex flex-col h-full">
+                class="group w-[280px] min-w-[280px] lg:w-auto lg:min-w-0 shrink-0 snap-start lg:snap-none bg-white rounded-4xl p-4 border border-gray-50 shadow-xl shadow-gray-200/20 hover:shadow-2xl hover:shadow-violet-100/50 hover:-translate-y-2 transition-all duration-500 flex flex-col h-full">
 
                 {{-- IMAGE --}}
                 <div class="aspect-square bg-gray-50/50 rounded-3xl overflow-hidden mb-5 relative group-hover:scale-95 transition-transform duration-500 flex items-center justify-center">

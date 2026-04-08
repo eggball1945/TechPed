@@ -30,7 +30,17 @@ class UserProductController extends Controller
                 if ($sort === 'terbaru') $query->latest();
                 if ($sort === 'harga_rendah') $query->orderBy('harga', 'asc');
                 if ($sort === 'harga_tinggi') $query->orderBy('harga', 'desc');
-                if ($sort === 'terlaris') $query->orderByDesc('reviews_count');
+                if ($sort === 'terlaris') {
+                    $query->leftJoin(DB::raw('(
+                        SELECT op.product_id, SUM(op.jumlah) as total_sold 
+                        FROM order_product op 
+                        JOIN orders o ON o.id = op.order_id 
+                        WHERE o.status != \'dibatalkan\' 
+                        GROUP BY op.product_id
+                    ) as sales'), 'products.id', '=', 'sales.product_id')
+                    ->select('products.*')
+                    ->orderByDesc('sales.total_sold');
+                }
             })
             ->paginate(12);
 
