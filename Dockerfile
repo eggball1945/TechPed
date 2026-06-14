@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y curl && \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y nodejs
 
-RUN npm install
+RUN npm cache clean --force && npm install
 RUN npm run build
 
 RUN apt-get update && apt-get install -y \
